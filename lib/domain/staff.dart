@@ -23,7 +23,12 @@ class Staff {
   double get baseSalary => _baseSalary;
 
   //Setter 
+  set staffName(String name) => _staffName = name;
+  set gender(String g) => _gender = g;
+  set dob(String d) => _dob = d;
+  set position(Role p) => _position = p;
   set baseSalary(double value) => _baseSalary = value;
+
 
 
   @override  
