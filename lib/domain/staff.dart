@@ -36,7 +36,6 @@ class Doctor extends Staff {
   Specialization specialization;
 
   Doctor(
-    String staffId,
     String staffName,
     String gender,
     String dob,
@@ -50,7 +49,6 @@ class Nurse extends Staff {
   int yearOfExperince;
 
   Nurse(
-    String staffId,
     String staffName,
     String gender,
     String dob,
