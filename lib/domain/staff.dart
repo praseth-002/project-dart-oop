@@ -1,5 +1,5 @@
 import 'package:uuid/uuid.dart';
-enum Role {Doctor, Nurse, Receptionist}
+enum Role {Doctor, Nurse, Receptionist, Admin}
 enum Specialization {General, Pediatrician, Surgeon}
 
 var uuid = Uuid();
@@ -60,4 +60,17 @@ class Nurse extends Staff {
     double baseSalary,
     this.certification, 
     this.yearOfExperince) : super (staffName, gender, dob, Role.Nurse, baseSalary);
+}
+
+class Admin extends Staff {
+  String email;
+  String password;
+
+  Admin(
+    String staffName,
+    String gender,
+    String dob,
+    double baseSalary,
+    this.email, 
+    this.password) : super (staffName, gender, dob, Role.Nurse, baseSalary);
 }

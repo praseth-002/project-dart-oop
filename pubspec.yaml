@@ -10,6 +10,7 @@ environment:
 dependencies:
   path: ^1.9.0
   uuid: ^4.4.2
+  enough_ascii_art: ^1.1.1
 
 dev_dependencies:
   lints: ^6.0.0
