@@ -8,6 +8,40 @@ class HospitalStaffConsole {
 
   HospitalStaffConsole(this.hospital);
 
+  void authenticationInterface(){
+
+    while (true) {
+    stdout.writeln('\nWelcome to the Hospital Staff Management System!\n');
+    stdout.writeln('1). Login');
+    stdout.writeln('2). Exit');
+    stdout.write('Please enter your choice (1 or 2): ');
+    String? input = stdin.readLineSync();  
+
+    if  (input == null || input.trim().isEmpty) {
+      stdout.write('Error invlaid choice please choose between 1 and 2.');
+      continue;
+    }
+
+    String trimmedInput = input.trim();
+    int? choice = int.tryParse(trimmedInput);
+
+    if (choice == 1) {
+      //login Function but havent done it 
+      stdout.write('================Login=================\n');
+      stdout.write('Please input the following field\n');
+      stdout.write('Email:');
+      String? inputEmail = stdin.readLineSync();
+      stdout.write('\nPassword:');
+      String? inputPassword = stdin.readLineSync();
+    }else if (choice == 2) {
+      print('\nThank you for using the system. Goodbye!');
+      exit(0);
+    }else{
+      stdout.write('Invalid input please input between choice 1 and 2');
+    }
+
+  }
+  }
 
   void startSystem() {
     const String welcomeText = 'HOSPITAL STAFF MANAGEMENT SYSTEM';
@@ -31,6 +65,7 @@ class HospitalStaffConsole {
 
     stdout.writeln(asciiArt);
     stdout.writeln('\nWelcome to the Hospital Staff Management System!\n');
+
   }
 }
 
@@ -42,4 +77,5 @@ void main() {
   HospitalStaffConsole testConsole = HospitalStaffConsole(hospital);
 
   testConsole.startSystem();
+  testConsole.authenticationInterface();
 }
