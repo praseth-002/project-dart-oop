@@ -56,8 +56,14 @@ class Hospital {
     throw Exception("staff $id not found");
   }
 
-  
+  Admin? findAdminByEmail(String email) {
+    for (var staff in _staffs){
+      if (staff is Admin && staff.email == email) {
+        return staff;
+      }
+    }
+    return null;
+  }
 
-
-  
 }
+  

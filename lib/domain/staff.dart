@@ -72,5 +72,9 @@ class Admin extends Staff {
     String dob,
     double baseSalary,
     this.email, 
-    this.password) : super (staffName, gender, dob, Role.Nurse, baseSalary);
+    this.password) : super (staffName, gender, dob, Role.Admin, baseSalary);
+
+    bool isAuthenticated (String inputEmail, String inputPassword) {
+      return email == inputEmail && password == inputPassword;
+    }
 }
