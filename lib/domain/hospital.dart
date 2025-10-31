@@ -15,7 +15,7 @@ class Hospital {
 
   //add new staff
   Staff addStaff (Staff newStaff) {
-    staffs.add(newStaff);    
+    staffs.add(newStaff);
     return newStaff;
   }
 

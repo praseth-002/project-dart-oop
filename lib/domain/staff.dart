@@ -50,16 +50,15 @@ class Doctor extends Staff {
 }
 
 class Nurse extends Staff {
-  List<String> certification;
+  List<String> certification =[];
   int yearOfExperince;
 
   Nurse(
     String staffName,
     String gender,
     String dob,
-    double baseSalary,
-    this.certification, 
-    this.yearOfExperince) : super (staffName, gender, dob, Role.Nurse, baseSalary);
+    double baseSalary, 
+    {this.yearOfExperince = 0}) : super (staffName, gender, dob, Role.Nurse, baseSalary);
 }
 
 class Admin extends Staff {
