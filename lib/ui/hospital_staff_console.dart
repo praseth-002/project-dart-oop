@@ -30,7 +30,7 @@ void adminDashboard(Admin admin) {
         stdout.writeln('\nPlease input the following staff information:');
         var name = _askLabel('Name');
         var gender = _askLabel('Gender');
-        var dob = _askLabel('Date of Birth (DD/MM/YYYY):');
+        var dob = _askLabel('Date of Birth (DD/MM/YYYY)');
         var salary = _inputSalary();
         var role = _askRole();
 
@@ -64,7 +64,7 @@ void adminDashboard(Admin admin) {
         return;
 
       default:
-        stdout.writeln('❌ Invalid choice. Try again.');
+        stdout.writeln('Invalid choice. Try again.');
     }
   }
 }
@@ -109,7 +109,7 @@ void adminDashboard(Admin admin) {
         stdout.write("==============Login successfully==============");
         adminDashboard(admin);
       }else{
-        stdout.writeln('\n❌ Invalid email or password. Please try again.');
+        stdout.writeln('\nInvalid email or password. Please try again.');
       }
 
     }else if (choice == 2) {
@@ -149,7 +149,7 @@ void adminDashboard(Admin admin) {
 
   //helper function for user input 
   String _askLabel (String label){
-    stdout.write('$label');
+    stdout.write('$label:');
     return stdin.readLineSync()?.trim() ?? '';
   }
 
@@ -208,7 +208,7 @@ void adminDashboard(Admin admin) {
 
 void main() {
   Hospital hospital = Hospital("TESTING");
-  Admin admin1 =Admin("staffName", "gender", "Dob", 12334, "admin@gmail.com", "12345678");
+  Admin admin1 =Admin("staffName", "gender", "Dob", 500, "admin@gmail.com", "12345678");
   hospital.addStaff(admin1);
   HospitalStaffConsole testConsole = HospitalStaffConsole(hospital);
 
