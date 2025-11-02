@@ -30,7 +30,7 @@ class Hospital {
     return staffByRole;
   }
 
-  //search staff (by id less headache)
+  //search staff, by id less headache (nvm apparently the uuid thing long as hell 💀)
   Staff searchStaffById (String id) {
     for (var staff in staffs) {
       if (staff.staffId == id) {
@@ -39,7 +39,8 @@ class Hospital {
     }
     throw Exception("staff $id not found");
   }
-  //or search by name, no handle dupes return all with the same/similar
+
+  //or search by name, no handle dupes, will return all with the same/similar in a list
    List<Staff> searchStaffByName (String name) {
     name = name.toLowerCase();
     List<Staff> foundStaff = [];
@@ -54,9 +55,14 @@ class Hospital {
     return foundStaff;
   }
 
-  //edit staff 🚧 🚜 👷‍♂️
-  Staff editStaffInfo (String id) {
-    throw Exception("wait");
+  //edit staff (in ui recommend dak ah search staff by id, if name u need to code jren filter and stuff)
+  Staff editStaffInfo (Staff staff, {String? name, String? gender ,String? dob ,Role? position ,double? baseSalary}) {
+    if (name != null) staff.staffName = name;
+    if (gender != null) staff.gender = gender;
+    if (dob != null) staff.dob = dob;
+    if (position != null) staff.position = position;
+    if (baseSalary != null) staff.baseSalary = baseSalary;
+    return staff;
   }
 
   //remove staff
