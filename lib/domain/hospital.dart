@@ -85,5 +85,11 @@ class Hospital {
     return null;
   }
 
+  double staffTotalSalary (Staff staff) {
+    double totalSalary = staff.baseSalary;
+    
+    return totalSalary;
+  }
+
 }
   

@@ -29,8 +29,6 @@ class Staff {
   set position(Role p) => _position = p;
   set baseSalary(double value) => _baseSalary = value;
 
-
-
   @override  
   String toString() {
     return " staffId:$_staffId\nname:$_staffName\ngender:$_gender\ndob:$_dob\nposition:$_position\nbaseSalary:$_baseSalary";
