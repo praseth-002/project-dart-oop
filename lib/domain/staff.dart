@@ -1,3 +1,4 @@
+import 'package:hospital_management/domain/attendance.dart';
 import 'package:uuid/uuid.dart';
 enum Role {Doctor, Nurse, Receptionist, Admin}
 enum Specialization {General, Pediatrician, Surgeon}
@@ -10,6 +11,7 @@ class Staff {
   String _dob;
   Role _position;
   double _baseSalary;
+  List<Attendance> _attendance = [];
   // shift idk how to implement yet TBC
 
   Staff (this._staffName, this._gender, this._dob, this._position, this._baseSalary) : _staffId = uuid.v4();
@@ -21,6 +23,7 @@ class Staff {
   String get dob => _dob;
   Role get position => _position;
   double get baseSalary => _baseSalary;
+  List<Attendance> get attendance => _attendance;
 
   //Setter 
   set staffName(String name) => _staffName = name;
@@ -31,7 +34,7 @@ class Staff {
 
   @override  
   String toString() {
-    return " staffId:$_staffId\nname:$_staffName\ngender:$_gender\ndob:$_dob\nposition:$_position\nbaseSalary:$_baseSalary";
+    return " staffId:$_staffId\nname:$_staffName\ngender:$_gender\ndob:$_dob\nposition:$_position\nbaseSalary:$_baseSalary\nattendance:$_attendance";
   }
 }
 

@@ -17,13 +17,13 @@ class Attendance {
   }
 }
 
-void main() {
-  var att = Attendance(
-    DateTime(2025, 11, 2, 8, 0),
-    DateTime(2025, 11, 2, 17, 30),
-  );
+// void main() {
+//   var att = Attendance(
+//     DateTime(2025, 11, 2, 8, 0),
+//     DateTime(2025, 11, 2, 17, 30),
+//   );
 
-  print(att.timeWorked().inHours); // 9
-  print(att.timeWorked().inMinutes); // 570
-  print(att);
-}
+//   print(att.timeWorked().inHours); // 9
+//   print(att.timeWorked().inMinutes); // 570
+//   print(att);
+// }

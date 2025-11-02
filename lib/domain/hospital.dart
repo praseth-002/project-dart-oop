@@ -2,6 +2,7 @@
 import 'dart:io';
 import 'dart:math';
 import 'staff.dart';
+import 'attendance.dart';
 
 class Hospital {
   final String hospitalName;
@@ -70,7 +71,7 @@ class Hospital {
     for (var staff in staffs) {
       if (staff.staffId == id) {
         staffs.remove(staff);
-        exit(0);
+        return;
       }
     }
     throw Exception("staff $id not found");
@@ -85,10 +86,63 @@ class Hospital {
     return null;
   }
 
-  double staffTotalSalary (Staff staff) {
+  //total salary for staff
+  //3 bonuses: role, doc specialization, and overtime 
+  //role: recep + 0, nurse + 1000, doc + 2000
+  //doc special: gen + 2000, ped + 1000, surg + 3000
+  //overtime: + 100 each hr over 8, hr 9, 10, 11...
+  double staffTotalSalary(Staff staff) {
     double totalSalary = staff.baseSalary;
-    
+    double roleBonus = 0;
+    double specializationBonus = 0;
+    double overtimePay = 0;
+
+    switch (staff.position) {
+      case Role.Receptionist:
+        roleBonus = 0;
+        break;
+      case Role.Nurse:
+        roleBonus = 1000;
+        break;
+      case Role.Doctor:
+        roleBonus = 2000;
+        break;
+      default:
+        roleBonus = 0;
+    }
+
+    if (staff is Doctor) {
+      switch (staff.specialization) {
+        case Specialization.General:
+          specializationBonus = 2000;
+          break;
+        case Specialization.Pediatrician:
+          specializationBonus = 1000;
+          break;
+        case Specialization.Surgeon:
+          specializationBonus = 3000;
+          break;
+      }
+    }
+  
+    for (var attendance in staff.attendance) {
+      var hoursWorked = attendance.timeWorked().inHours;
+      if (hoursWorked > 8) {
+        var overtimeHours = hoursWorked - 8;
+        overtimePay += overtimeHours * 100;
+      }
+    }
+
+    totalSalary += roleBonus + specializationBonus + overtimePay;
+
     return totalSalary;
+  }
+
+
+  //attendance tracker thing
+  //format for datetime yyyy, mm, dd, hh, mm
+  void recordAttendance(Staff staff, DateTime start, DateTime end) {
+    staff.attendance.add(Attendance(start, end));
   }
 
 }
