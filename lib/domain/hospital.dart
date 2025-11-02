@@ -39,6 +39,20 @@ class Hospital {
     }
     throw Exception("staff $id not found");
   }
+  //or search by name, no handle dupes return all with the same/similar
+   List<Staff> searchStaffByName (String name) {
+    name = name.toLowerCase();
+    List<Staff> foundStaff = [];
+    for (var staff in staffs) {
+      if (staff.staffName.toLowerCase().contains(name)) {
+        foundStaff.add(staff);
+      }
+    }
+    if (foundStaff.isEmpty) {
+      throw Exception("staff $name not found");
+    }
+    return foundStaff;
+  }
 
   //edit staff 🚧 🚜 👷‍♂️
   Staff editStaffInfo (String id) {
