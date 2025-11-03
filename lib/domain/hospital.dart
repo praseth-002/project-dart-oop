@@ -42,7 +42,7 @@ class Hospital {
   }
 
   //or search by name, no handle dupes, will return all with the same/similar in a list
-   List<Staff> searchStaffByName (String name) {
+  List<Staff> searchStaffByName (String name) {
     name = name.toLowerCase();
     List<Staff> foundStaff = [];
     for (var staff in staffs) {

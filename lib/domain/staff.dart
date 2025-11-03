@@ -11,7 +11,7 @@ class Staff {
   String _dob;
   Role _position;
   double _baseSalary;
-  List<Attendance> _attendance = [];
+  final List<Attendance> _attendance = [];
   // shift idk how to implement yet TBC
 
   Staff (this._staffName, this._gender, this._dob, this._position, this._baseSalary) : _staffId = uuid.v4();
