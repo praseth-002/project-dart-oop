@@ -20,8 +20,9 @@ class HospitalStaffConsole {
       stdout.writeln('5). Edit staff information');
       stdout.writeln('6). Remove staff');
       stdout.writeln('7). Record Attendance');
-      stdout.writeln('8). View Total Salary of All Staff');
-      stdout.writeln('9). Logout');
+      stdout.writeln('8). View Total Salary of Staff');
+      stdout.writeln('9). View Total Salary of All Staff');
+      stdout.writeln('10). Logout');
       stdout.writeln('=========================================');
       stdout.write('Please select an option: ');
       String? input = stdin.readLineSync();
@@ -174,16 +175,16 @@ class HospitalStaffConsole {
 
         if (staff == null) {
           stdout.writeln('\n No staff found with this ID.');
-          break; // Exit this case safely
+          break; 
         }
 
-        // Staff found
+        
         stdout.writeln('\n=== STAFF FOUND ===');
         staff.printInfo();
 
-        String newName = _askLabel("New Name (leave blank to keep)").trim();
-        String newGender = _askLabel("New Gender (leave blank to keep)").trim();
-        String newDob = _askLabel("New Date of Birth (leave blank to keep)").trim();
+        String newName = _askLabel("New Name (leave blank to keep)",allowEmpty: true).trim();
+        String newGender = _askLabel("New Gender (leave blank to keep)",allowEmpty: true).trim();
+        String newDob = _askLabel("New Date of Birth (leave blank to keep)", allowEmpty: true).trim();
 
         String salaryInput = _askLabel("New Base Salary (leave blank to keep)").trim();
         double? newBaseSalary = salaryInput.isNotEmpty ? double.tryParse(salaryInput) : null;
@@ -200,7 +201,93 @@ class HospitalStaffConsole {
         staff.printInfo();
         break;
 
-        case '9':
+        case '6':
+        stdout.writeln('\n\n============ REMOVE STAFF ============\n');
+
+        String id = _askLabel("Input staff ID").trim();
+
+        Staff? staff = hospital.searchStaffById(id);
+
+        if (staff == null) {
+          stdout.writeln('\n No staff found with this ID.');
+          break; 
+        }
+
+        
+        stdout.writeln('\n=== STAFF FOUND ===');
+        staff.printInfo();
+
+        if (_isConfirm('Confrim remove staff (y/n):')){
+          hospital.removeStaffById(id);
+          stdout.writeln('Staff remove successfully!');
+          }else{
+              stdout.write('-----------------Remove Staff cancelled-----------------');
+            }
+
+        break;
+        case '7':
+        stdout.writeln('\n\n============ RECORD STAFF ATTENDANCE ============\n');
+        String id = _askLabel("Input staff ID").trim();
+
+        Staff? staff = hospital.searchStaffById(id);
+
+        if (staff == null) {
+          stdout.writeln('\n No staff found with this ID.');
+          break; 
+        }
+        stdout.writeln('\n=== STAFF FOUND ===');
+        staff.printInfo();
+        stdout.writeln('\nEnter attendance time details (format: yyyy-MM-dd HH:mm)');
+        DateTime? start = _inputDateTime("Start time");
+        DateTime? end = _inputDateTime("End time");
+        if (end.isBefore(start)) {
+          stdout.writeln(' End time cannot be before start time!');
+        return;
+        }
+        hospital.recordAttendance(staff, start, end);
+        stdout.writeln('\nAttendance recorded successfully!');
+        break;
+        case '8':
+        stdout.writeln('\n\n============ CALCULATE TOTAL SALARY ============\n');
+        String id = _askLabel("Input staff ID").trim();
+
+        Staff? staff = hospital.searchStaffById(id);
+
+        if (staff == null) {
+          stdout.writeln('\n No staff found with this ID.');
+          break; 
+        }
+        stdout.writeln('\n=== STAFF FOUND ===');
+        staff.printInfo();
+
+        double totalSalary = hospital.staffTotalSalary(staff);
+        stdout.writeln('Base Salary: \$${staff.baseSalary.toStringAsFixed(2)}');
+        stdout.writeln('Total Salary (with bonuses & overtime): \$${totalSalary.toStringAsFixed(2)}');
+        break;
+
+        case '9' :
+        stdout.writeln('\n============ TOTAL SALARY OF ALL STAFF ============\n');
+        if (hospital.staffs.isEmpty) {
+          stdout.writeln('No staff in the system.');
+          break;
+        }
+
+        double totalAllSalary = 0;
+        for (var staff in hospital.staffs) {
+          double totalSalary = hospital.staffTotalSalary(staff);
+          totalAllSalary += totalSalary;
+
+          stdout.writeln('ID: ${staff.staffId}');
+          stdout.writeln('Name: ${staff.staffName}');
+          stdout.writeln('Role: ${staff.position.name}');
+          stdout.writeln('Total Salary: \$${totalSalary.toStringAsFixed(2)}');
+          stdout.writeln('------------------------------------------');
+        }
+
+        stdout.writeln('Total Salary for All Staff: \$${totalAllSalary.toStringAsFixed(2)}');
+        break;
+
+        case '10':
           stdout.writeln('\nLogging out...');
           return;
 
@@ -278,10 +365,27 @@ class HospitalStaffConsole {
   }
 
   //helper function for user input
-  String _askLabel(String label) {
-    stdout.write('$label:');
-    return stdin.readLineSync()?.trim() ?? '';
+  String _askLabel(String label, {bool allowEmpty = false}) {
+  while (true) {
+    stdout.write('$label: ');
+    String? input = stdin.readLineSync();
+
+    if (input == null) {
+      stdout.writeln('Input cannot be null.');
+      continue;
+    }
+
+    input = input.trim();
+
+    if (input.isEmpty && !allowEmpty) {
+      stdout.writeln('Please enter a value.');
+      continue;
+    }
+
+    return input;
+    }
   }
+
 
   double _inputSalary() {
     while (true) {
@@ -354,6 +458,24 @@ class HospitalStaffConsole {
       }
     }
   }
+
+  DateTime _inputDateTime(String label) {
+  while (true) {
+    stdout.write('$label (yyyy-MM-dd HH:mm): ');
+    String? input = stdin.readLineSync();
+
+    if (input == null || input.trim().isEmpty) {
+      stdout.writeln('Please enter a value.');
+      continue;
+    }
+
+    try {
+      return DateTime.parse(input.replaceFirst(' ', 'T'));
+    } catch (e) {
+      stdout.writeln('Invalid format. Example: 2025-11-03 08:30');
+    }
+  }
+}
 
 
 void main() {
