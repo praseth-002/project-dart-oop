@@ -32,6 +32,16 @@ class Staff {
   set position(Role p) => _position = p;
   set baseSalary(double value) => _baseSalary = value;
 
+  void printInfo() {
+    print('------------------------------------------');
+    print('ID: $_staffId');
+    print('Name: $_staffName');
+    print('Gender: $_gender');
+    print('DOB: $_dob');
+    print('Role: ${_position.name}');
+    print('Base Salary: \$${_baseSalary.toStringAsFixed(2)}');
+  }
+
   @override  
   String toString() {
     return " staffId:$_staffId\nname:$_staffName\ngender:$_gender\ndob:$_dob\nposition:$_position\nbaseSalary:$_baseSalary\nattendance:$_attendance";
@@ -48,6 +58,12 @@ class Doctor extends Staff {
     double baseSalary,
     this.specialization,
   ) : super(staffName, gender, dob, Role.Doctor, baseSalary);
+
+  @override
+  void printInfo() {
+    super.printInfo();
+    print('Specialization: ${specialization.name}');
+  }
 }
 
 class Nurse extends Staff {
@@ -60,6 +76,13 @@ class Nurse extends Staff {
     String dob,
     double baseSalary, 
     {this.yearOfExperince = 0}) : super (staffName, gender, dob, Role.Nurse, baseSalary);
+
+    @override
+  void printInfo() {
+    super.printInfo();
+    print('Certifications: ${certification.isEmpty ? "None" : certification.join(", ")}');
+    print('Years of Experience: $yearOfExperince');
+  }
 }
 
 class Admin extends Staff {
@@ -77,4 +100,10 @@ class Admin extends Staff {
     bool isAuthenticated (String inputEmail, String inputPassword) {
       return email == inputEmail && password == inputPassword;
     }
+
+    @override
+  void printInfo() {
+    super.printInfo();
+    print('Email: $email');
+  }
 }

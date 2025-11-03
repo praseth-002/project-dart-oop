@@ -4,127 +4,262 @@ import 'package:enough_ascii_art/enough_ascii_art.dart';
 import 'package:hospital_management/domain/staff.dart';
 import '../domain/hospital.dart';
 
-
 class HospitalStaffConsole {
   final Hospital hospital;
 
   HospitalStaffConsole(this.hospital);
+  
 
-void adminDashboard(Admin admin) {
-  while (true) {
-    stdout.writeln('\n============ ADMIN DASHBOARD ============');
-    stdout.writeln('1). Add new staff');
-    stdout.writeln('2). View all staff');
-    stdout.writeln('3). View staff by role');
-    stdout.writeln('4). Search staff by name or Id');
-    stdout.writeln('5). Edit staff information');
-    stdout.writeln('6). Remove staff');
-    stdout.writeln('7). Logout');
-    stdout.writeln('=========================================');
-    stdout.write('Please select an option: ');
-    String? input = stdin.readLineSync();
+  void adminDashboard(Admin admin) {
+    while (true) {
+      stdout.writeln('\n\n============ ADMIN DASHBOARD ============');
+      stdout.writeln('1). Add new staff');
+      stdout.writeln('2). View all staff');
+      stdout.writeln('3). View staff by role');
+      stdout.writeln('4). Search staff by name or Id');
+      stdout.writeln('5). Edit staff information');
+      stdout.writeln('6). Remove staff');
+      stdout.writeln('7). Record Attendance');
+      stdout.writeln('8). View Total Salary of All Staff');
+      stdout.writeln('9). Logout');
+      stdout.writeln('=========================================');
+      stdout.write('Please select an option: ');
+      String? input = stdin.readLineSync();
 
-    switch (input) {
-      case '1':
-        stdout.writeln('\nAdd new staff:');
-        stdout.writeln('\nPlease input the following staff information:');
-        var name = _askLabel('Name');
-        var gender = _askLabel('Gender');
-        var dob = _askLabel('Date of Birth (DD/MM/YYYY)');
-        var salary = _inputSalary();
-        var role = _askRole();
+      switch (input) {
+        //add new staff 
+        case '1':
+          stdout.writeln('\n------------------ ADD NEW STAFF ------------------');
+          stdout.writeln('\nPlease input the following staff information:');
+          var name = _askLabel('Name');
+          var gender = _askLabel('Gender');
+          var dob = _askLabel('Date of Birth (DD/MM/YYYY)');
+          var salary = _inputSalary();
+          var role = _askRole();
 
-        if(role == Role.Admin) {
-          var email = _askLabel('Email');
-          var password = _askLabel('Password');
-          hospital.addStaff(Admin(name, gender, dob, salary, email, password));
-          stdout.writeln('Admin added successfully!');
-        }else if(role == Role.Doctor) {
-          var specialization = _askSpeacialization();
-          hospital.addStaff(Doctor(name, gender, dob, salary,specialization));
-          stdout.writeln('Doctor added successfully!');
-        }else if(role == Role.Nurse) {
-          hospital.addStaff(Nurse(name, gender, dob, salary));
-          stdout.writeln('Nurse added successfully!');
+          if (role == Role.Admin) {
+            var email = _askLabel('Email');
+            var password = _askLabel('Password');
+            stdout.writeln('\nYou are about to add this Admin:');
+            stdout.writeln('Name: $name');
+            stdout.writeln('Gender: $gender');
+            stdout.writeln('DOB: $dob');
+            stdout.writeln('Salary: $salary');
+            stdout.writeln('Email: $email');
+            if (_isConfirm('Confrim add admin? (y/n):')){
+              hospital.addStaff(Admin(name, gender, dob, salary, email, password));
+              stdout.writeln('Admin added successfully!');
+            }else{
+              stdout.write('-----------------Add Admin cancelled-----------------');
+            }
+            
+          } else if (role == Role.Doctor) {
+            var specialization = _askSpeacialization();
+            stdout.writeln('\nYou are about to add this Docotor:');
+            stdout.writeln('Name: $name');
+            stdout.writeln('Gender: $gender');
+            stdout.writeln('DOB: $dob');
+            stdout.writeln('Salary: $salary');
+            stdout.writeln('Email: $specialization');
+            if (_isConfirm('Confrim add doctor? (y/n):')){
+              hospital.addStaff(Doctor(name, gender, dob, salary, specialization));
+              stdout.writeln('Doctor added successfully!');
+            }else{
+              stdout.write('-----------------Add Doctor cancelled-----------------');
+            }
+            
+          } else if (role == Role.Nurse) {
+            stdout.writeln('\nYou are about to add this Nurse:');
+            stdout.writeln('Name: $name');
+            stdout.writeln('Gender: $gender');
+            stdout.writeln('DOB: $dob');
+            stdout.writeln('Salary: $salary');
+
+            if (_isConfirm('Confrim add nurse? (y/n):')){
+              hospital.addStaff(Nurse(name, gender, dob, salary));
+              stdout.writeln('Nurse added successfully!');
+            }else{
+              stdout.write('-----------------Add Nurse cancelled-----------------');
+            }
+          } else if (role == Role.Receptionist) {
+            stdout.writeln('\nYou are about to add this Receptionist:');
+            stdout.writeln('Name: $name');
+            stdout.writeln('Gender: $gender');
+            stdout.writeln('DOB: $dob');
+            stdout.writeln('Salary: $salary');
+            if (_isConfirm('Confrim add receptionist? (y/n):')){
+              hospital.addStaff(Staff(name, gender, dob, Role.Receptionist, salary));
+            stdout.writeln('Receptionist added successfully!');
+            }else{
+              stdout.write('-----------------Add Receptionist cancelled-----------------');
+            }
+  
+          }
+          break;
+
+        case '2':
+          stdout.writeln('\n\n============ STAFF INFORMATION ============\n');
+          for (var staff in hospital.staffs) {
+            stdout.writeln('------------------------------------------');
+            staff.printInfo();
+          }
+          stdout.writeln('\n===================END======================\n');
+          break;
+
+        case '3':
+        stdout.writeln('\n------------------ VIEW STAFF BY ROLE ------------------');
+        Role role = _askRole();
+        var staffByRole = hospital.viewStaffByRole(role);
+
+        if(staffByRole.isEmpty){
+          stdout.write('There is no staff with that role $role');
         }
-        break;
 
-      case '2':
-        for (var s in hospital.staffs) {
-          print('ID: ${s.staffId} | Name: ${s.staffName}');
-        }
+        stdout.writeln('\n\n============ STAFF INFORMATION ============\n');
+          for (var staff in staffByRole) {
+            stdout.writeln('------------------------------------------');
+            staff.printInfo();
+          }
+          stdout.writeln('\n===================END======================\n');
         break;
-
-      case '3':
         
+        case '4':
+        stdout.writeln('\n------------------ SEARCH STAFF ------------------');
+        
+        String input;
+        while (true) {
+          input = _askLabel('Search by (1) ID or (2) Name: ');
+          if (input == '1' || input == '2') break;
+          stdout.writeln('Invalid choice, please try again.\n');
+        }
+
+        if (input == '1') {
+          String id;
+          do {
+            id = _askLabel('Enter Staff ID: ').trim();
+            if (id.isEmpty) stdout.writeln('ID cannot be empty. Please try again.\n');
+          } while (id.isEmpty);
+
+          var staff = hospital.searchStaffById(id);
+          if (staff != null) {
+            stdout.writeln('\n=== STAFF FOUND ===');
+            staff.printInfo();
+          } else {
+            stdout.writeln('\nNo staff found with this ID.');
+          }
+        } 
+        else if (input == '2') {
+          String name;
+          do {
+            name = _askLabel('Enter Staff Name: ').trim();
+            if (name.isEmpty) stdout.writeln('Name cannot be empty. Please try again.\n');
+          } while (name.isEmpty);
+
+          var staff = hospital.searchStaffByName(name);
+          if (staff != null) {
+            stdout.writeln('\n=== STAFF FOUND ===');
+            staff.printInfo();
+          } else {
+            stdout.writeln('\nNo staff found with this name.');
+          }
+          }
+        break;
+      case '5':
+        stdout.writeln('\n\n============ EDIT STAFF INFORMATION ============\n');
+
+        // Ask for staff ID
+        String id = _askLabel("Input staff ID").trim();
+
+        Staff? staff = hospital.searchStaffById(id);
+
+        if (staff == null) {
+          stdout.writeln('\n No staff found with this ID.');
+          break; // Exit this case safely
+        }
+
+        // Staff found
+        stdout.writeln('\n=== STAFF FOUND ===');
+        staff.printInfo();
+
+        String newName = _askLabel("New Name (leave blank to keep)").trim();
+        String newGender = _askLabel("New Gender (leave blank to keep)").trim();
+        String newDob = _askLabel("New Date of Birth (leave blank to keep)").trim();
+
+        String salaryInput = _askLabel("New Base Salary (leave blank to keep)").trim();
+        double? newBaseSalary = salaryInput.isNotEmpty ? double.tryParse(salaryInput) : null;
+
+        hospital.editStaffInfo(
+          staff,
+          name: newName.isNotEmpty ? newName : null,
+          gender: newGender.isNotEmpty ? newGender : null,
+          dob: newDob.isNotEmpty ? newDob : null,
+          baseSalary: newBaseSalary,
+        );
+
+        stdout.writeln("Staff information updated!");
+        staff.printInfo();
         break;
 
-      case '7':
-        stdout.writeln('\nLogging out...');
-        return;
+        case '9':
+          stdout.writeln('\nLogging out...');
+          return;
 
-      default:
-        stdout.writeln('Invalid choice. Try again.');
+        default:
+          stdout.writeln('Invalid choice. Try again.');
+      }
     }
   }
-}
 
-
-  void authenticationInterface(){
+  void authenticationInterface() {
     while (true) {
-    stdout.writeln('\nWelcome to the Hospital Staff Management System!\n');
-    stdout.writeln('1). Login');
-    stdout.writeln('2). Exit');
-    stdout.write('Please enter your choice (1 or 2): ');
-    String? input = stdin.readLineSync();  
+      stdout.writeln('\nWelcome to the Hospital Staff Management System!\n');
+      stdout.writeln('1). Login');
+      stdout.writeln('2). Exit');
+      stdout.write('Please enter your choice (1 or 2): ');
+      String? input = stdin.readLineSync();
 
-    if  (input == null || input.trim().isEmpty) {
-      stdout.write('Error invlaid choice please choose between 1 and 2.');
-      continue;
-    }
-
-    String trimmedInput = input.trim();
-    int? choice = int.tryParse(trimmedInput);
-
-    if (choice == 1) {
-      //login Function but havent done it 
-      stdout.write('\n================Login=================\n');
-      stdout.write('Please input the following field\n');
-      stdout.write('Email:');
-      String? inputEmail = stdin.readLineSync();
-      stdout.write('\nPassword:');
-      String? inputPassword = stdin.readLineSync();
-
-      
-      if (inputEmail == null && inputPassword == null){
-        stdout.write("Invalid input pls try again.");
+      if (input == null || input.trim().isEmpty) {
+        stdout.write('Error invlaid choice please choose between 1 and 2.');
         continue;
       }
 
-      
+      String trimmedInput = input.trim();
+      int? choice = int.tryParse(trimmedInput);
 
-      var admin = hospital.findAdminByEmail(inputEmail!.trim());
+      if (choice == 1) {
+        //login Function but havent done it
+        stdout.write('\n================Login=================\n');
+        stdout.write('Please input the following field\n');
+        stdout.write('Email:');
+        String? inputEmail = stdin.readLineSync();
+        stdout.write('\nPassword:');
+        String? inputPassword = stdin.readLineSync();
 
-      if (admin != null && admin.isAuthenticated(inputEmail, inputPassword!)){
-        stdout.write("==============Login successfully==============");
-        adminDashboard(admin);
-      }else{
-        stdout.writeln('\nInvalid email or password. Please try again.');
+        if (inputEmail == null && inputPassword == null) {
+          stdout.write("Invalid input pls try again.");
+          continue;
+        }
+
+        var admin = hospital.findAdminByEmail(inputEmail!.trim());
+
+        if (admin != null &&
+            admin.isAuthenticated(inputEmail, inputPassword!)) {
+          stdout.write("==============Login successfully==============");
+          adminDashboard(admin);
+        } else {
+          stdout.writeln('\nInvalid email or password. Please try again.');
+        }
+      } else if (choice == 2) {
+        print('\nThank you for using the system. Goodbye!');
+        exit(0);
+      } else {
+        stdout.write('Invalid input please input between choice 1 and 2');
       }
-
-    }else if (choice == 2) {
-      print('\nThank you for using the system. Goodbye!');
-      exit(0);
-    }else{
-      stdout.write('Invalid input please input between choice 1 and 2');
     }
-
-  }
   }
 
   void startSystem() {
     const String welcomeText = 'HOSPITAL STAFF MANAGEMENT SYSTEM';
-
 
     final fontPath = '../../assets/mini.flf';
     final file = File(fontPath);
@@ -135,57 +270,73 @@ void adminDashboard(Admin admin) {
     }
     final String fontFileContents = file.readAsStringSync();
 
-
     final font = Font.text(fontFileContents);
 
-    
     final asciiArt = FIGlet.renderFIGure(welcomeText, font);
 
-
     stdout.writeln(asciiArt);
-    stdout.writeln('\nWelcome to the Hospital Staff Management System!\n');
-
   }
 
-  //helper function for user input 
-  String _askLabel (String label){
+  //helper function for user input
+  String _askLabel(String label) {
     stdout.write('$label:');
     return stdin.readLineSync()?.trim() ?? '';
   }
 
-  double _inputSalary () {
-    while(true){
-      stdout.write("Base salary:");
-      var input = stdin.readLineSync();
-      var salary = double.tryParse(input ?? '');
-      if(salary != null || salary! > 0){
-        return salary;
-      }else{
-        stdout.write("Invalid salary pls try again");
-      }
+  double _inputSalary() {
+    while (true) {
+    stdout.write('Base salary: ');
+    String? input = stdin.readLineSync();
+
+    if (input == null || input.trim().isEmpty) {
+      stdout.writeln('Salary cannot be empty. Please enter a valid number.');
+      continue;
+    }
+
+    double? salary = double.tryParse(input.trim());
+    if (salary == null || salary <= 0) {
+      stdout.writeln('Invalid salary. Please enter a positive number.');
+      continue;
+    }
+
+    return salary;
+  }
     }
   }
 
+
+
   Role _askRole() {
-    stdout.writeln('Choose role:');
+    stdout.writeln('\nChoose role:');
     for (var i = 0; i < Role.values.length; i++) {
       stdout.writeln('${i + 1}). ${Role.values[i].name}');
     }
 
     while (true) {
-      stdout.write('Your choice:');
+      stdout.write('\nYour choice:');
       var input = stdin.readLineSync();
       var index = int.tryParse(input ?? '');
       if (index != null && index >= 1 && index <= Role.values.length) {
         return Role.values[index - 1];
-      }else{
+      } else {
         stdout.write('Invalid role please try again');
       }
     }
   }
 
+  bool _isConfirm (String prompt) {
+    while(true) {
+      stdout.write(prompt);
+      String? input = stdin.readLineSync();
+      if (input == null) continue;
+      var cleanInput = input.trim().toLowerCase();
+      if (cleanInput == 'y'|| cleanInput ==  'yes' ) return true;
+      if (cleanInput == 'n'|| cleanInput ==  'n' ) return false;
+    }
+  }
+
   Specialization _askSpeacialization() {
-    stdout.writeln('Choose specailization:');
+    stdout.writeln('\nChoose specailization:');
     for (var i = 0; i < Specialization.values.length; i++) {
       stdout.writeln('${i + 1}). ${Specialization.values[i].name}');
     }
@@ -194,21 +345,21 @@ void adminDashboard(Admin admin) {
       stdout.write('Your choice:');
       var input = stdin.readLineSync();
       var index = int.tryParse(input ?? '');
-      if (index != null && index >= 1 && index <= Specialization.values.length) {
+      if (index != null &&
+          index >= 1 &&
+          index <= Specialization.values.length) {
         return Specialization.values[index - 1];
-      }else{
+      } else {
         stdout.write('Invalid Specialzation please try again');
       }
     }
   }
 
-}
-
-
 
 void main() {
   Hospital hospital = Hospital("TESTING");
-  Admin admin1 =Admin("staffName", "gender", "Dob", 500, "admin@gmail.com", "12345678");
+  Admin admin1 =
+      Admin("staffName", "gender", "Dob", 500, "admin@gmail.com", "12345678");
   hospital.addStaff(admin1);
   HospitalStaffConsole testConsole = HospitalStaffConsole(hospital);
 

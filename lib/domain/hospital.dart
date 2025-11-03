@@ -21,39 +21,36 @@ class Hospital {
   }
 
   //view staff by role
-  List viewStaffByRole (Role role) {
-    List<Staff> staffByRole = [];
-    for (var staff in staffs) {
-      if (staff.position == role) {
-        staffByRole.add(staff);
-      }
+List<Staff> viewStaffByRole(Role role) {
+  List<Staff> staffByRole = [];
+  for (var staff in staffs) {
+    if (staff.position == role) {
+      staffByRole.add(staff);
     }
-    return staffByRole;
   }
+  return staffByRole;
+}
+
 
   //search staff, by id less headache (nvm apparently the uuid thing long as hell 💀)
-  Staff searchStaffById (String id) {
+  Staff? searchStaffById (String id) {
     for (var staff in staffs) {
       if (staff.staffId == id) {
         return staff;
       }
     }
-    throw Exception("staff $id not found");
+    return null;
   }
 
   //or search by name, no handle dupes, will return all with the same/similar in a list
-  List<Staff> searchStaffByName (String name) {
+  Staff? searchStaffByName (String name) {
     name = name.toLowerCase();
-    List<Staff> foundStaff = [];
     for (var staff in staffs) {
-      if (staff.staffName.toLowerCase().contains(name)) {
-        foundStaff.add(staff);
+      if (staff.staffName == name) {
+        return staff;
       }
     }
-    if (foundStaff.isEmpty) {
-      throw Exception("staff $name not found");
-    }
-    return foundStaff;
+    return null;
   }
 
   //edit staff (in ui recommend dak ah search staff by id, if name u need to code jren filter and stuff)
