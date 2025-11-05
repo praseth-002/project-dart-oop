@@ -1,13 +1,14 @@
-// bin/hospital_staff_console.dart  (or wherever your entrypoint is)
 import 'dart:io';
 import 'package:enough_ascii_art/enough_ascii_art.dart';
 import 'package:hospital_management/domain/staff.dart';
 import '../domain/hospital.dart';
+import '../data/save.dart';
 
 class HospitalStaffConsole {
   final Hospital hospital;
+  final DataManager dataManager;
 
-  HospitalStaffConsole(this.hospital);
+  HospitalStaffConsole(this.hospital, this.dataManager);
   
 
   void adminDashboard(Admin admin) {
@@ -49,6 +50,7 @@ class HospitalStaffConsole {
             stdout.writeln('Email: $email');
             if (_isConfirm('Confrim add admin? (y/n):')){
               hospital.addStaff(Admin(name, gender, dob, salary, email, password));
+              dataManager.saveStaff(hospital.staffs);
               stdout.writeln('Admin added successfully!');
             }else{
               stdout.write('-----------------Add Admin cancelled-----------------');
@@ -64,6 +66,7 @@ class HospitalStaffConsole {
             stdout.writeln('Email: $specialization');
             if (_isConfirm('Confrim add doctor? (y/n):')){
               hospital.addStaff(Doctor(name, gender, dob, salary, specialization));
+              dataManager.saveStaff(hospital.staffs);
               stdout.writeln('Doctor added successfully!');
             }else{
               stdout.write('-----------------Add Doctor cancelled-----------------');
@@ -78,6 +81,7 @@ class HospitalStaffConsole {
 
             if (_isConfirm('Confrim add nurse? (y/n):')){
               hospital.addStaff(Nurse(name, gender, dob, salary));
+              dataManager.saveStaff(hospital.staffs);
               stdout.writeln('Nurse added successfully!');
             }else{
               stdout.write('-----------------Add Nurse cancelled-----------------');
@@ -90,6 +94,7 @@ class HospitalStaffConsole {
             stdout.writeln('Salary: $salary');
             if (_isConfirm('Confrim add receptionist? (y/n):')){
               hospital.addStaff(Staff(name, gender, dob, Role.Receptionist, salary));
+              dataManager.saveStaff(hospital.staffs);
             stdout.writeln('Receptionist added successfully!');
             }else{
               stdout.write('-----------------Add Receptionist cancelled-----------------');
@@ -198,6 +203,7 @@ class HospitalStaffConsole {
         );
 
         stdout.writeln("Staff information updated!");
+        dataManager.saveStaff(hospital.staffs);
         staff.printInfo();
         break;
 
@@ -219,6 +225,7 @@ class HospitalStaffConsole {
 
         if (_isConfirm('Confrim remove staff (y/n):')){
           hospital.removeStaffById(id);
+          dataManager.saveStaff(hospital.staffs);
           stdout.writeln('Staff remove successfully!');
           }else{
               stdout.write('-----------------Remove Staff cancelled-----------------');
@@ -245,6 +252,7 @@ class HospitalStaffConsole {
         return;
         }
         hospital.recordAttendance(staff, start, end);
+        dataManager.saveStaff(hospital.staffs);
         stdout.writeln('\nAttendance recorded successfully!');
         break;
         case '8':
@@ -478,13 +486,13 @@ class HospitalStaffConsole {
 }
 
 
-void main() {
-  Hospital hospital = Hospital("TESTING");
-  Admin admin1 =
-      Admin("staffName", "gender", "Dob", 500, "admin@gmail.com", "12345678");
-  hospital.addStaff(admin1);
-  HospitalStaffConsole testConsole = HospitalStaffConsole(hospital);
+// void main() {
+//   Hospital hospital = Hospital("TESTING");
+//   Admin admin1 =
+//       Admin("staffName", "gender", "Dob", 500, "admin@gmail.com", "12345678");
+//   hospital.addStaff(admin1);
+//   HospitalStaffConsole testConsole = HospitalStaffConsole(hospital);
 
-  testConsole.startSystem();
-  testConsole.authenticationInterface();
-}
+//   testConsole.startSystem();
+//   testConsole.authenticationInterface();
+// }

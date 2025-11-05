@@ -43,15 +43,6 @@ List<Staff> viewStaffByRole(Role role) {
   }
 
   //or search by name, no handle dupes, will return all with the same/similar in a list
-  // Staff? searchStaffByName (String name) {
-  //   name = name.toLowerCase();
-  //   for (var staff in staffs) {
-  //     if (staff.staffName == name) {
-  //       return staff;
-  //     }
-  //   }
-  //   return null;
-  // }
   Staff? searchStaffByName(String name) {
     name = name.toLowerCase();
     for (var staff in staffs) {

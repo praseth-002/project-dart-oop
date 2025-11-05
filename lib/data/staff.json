@@ -1,47 +1,66 @@
 [
-  {
-    "type": "Admin",
-    "staffId": "admin-1",
-    "staffName": "Bopich",
-    "gender": "Female",
-    "dob": "1985-04-12",
-    "position": "Admin",
-    "baseSalary": 6000,
-    "email": "bopich.admin@example.com",
-    "password": "admin123",
-    "attendance": []
-  },
-  {
-    "type": "Doctor",
-    "staffId": "doc-1",
-    "staffName": "Darong",
-    "gender": "Male",
-    "dob": "1978-11-23",
-    "position": "Doctor",
-    "baseSalary": 8000,
-    "specialization": "Surgeon",
-    "attendance": []
-  },
-  {
-    "type": "Nurse",
-    "staffId": "nurse-1",
-    "staffName": "Praseth",
-    "gender": "Female",
-    "dob": "1990-06-17",
-    "position": "Nurse",
-    "baseSalary": 4000,
-    "certification": ["ICU", "Pediatrics"],
-    "yearOfExperince": 5,
-    "attendance": []
-  },
-  {
-    "type": "Staff",
-    "staffId": "rec-1",
-    "staffName": "Sokleaphea",
-    "gender": "Male",
-    "dob": "1995-02-05",
-    "position": "Receptionist",
-    "baseSalary": 3000,
-    "attendance": []
-  }
+    {
+        "type": "Admin",
+        "staffId": "0698eaf7-721b-498e-aca6-a11fb4f56a88",
+        "staffName": "Bopich",
+        "gender": "Female",
+        "dob": "1985-04-12",
+        "position": "Admin",
+        "baseSalary": 6000.0,
+        "attendance": [],
+        "email": "admin@test.com",
+        "password": "admin123"
+    },
+    {
+        "type": "Doctor",
+        "staffId": "a98a9dbb-ea3b-4b57-8dc5-94de57797c70",
+        "staffName": "Darong",
+        "gender": "Male",
+        "dob": "1978-11-23",
+        "position": "Doctor",
+        "baseSalary": 8000.0,
+        "attendance": [],
+        "specialization": "Surgeon"
+    },
+    {
+        "type": "Staff",
+        "staffId": "4b46d92c-07a0-4282-abc0-976dc777fe30",
+        "staffName": "Praseth",
+        "gender": "Female",
+        "dob": "1990-06-17",
+        "position": "Nurse",
+        "baseSalary": 4000.0,
+        "attendance": []
+    },
+    {
+        "type": "Staff",
+        "staffId": "702b419d-ec06-4bc2-a94b-cb7f944f450a",
+        "staffName": "Sokleaphea",
+        "gender": "Male",
+        "dob": "1995-02-05",
+        "position": "Receptionist",
+        "baseSalary": 3000.0,
+        "attendance": []
+    },
+    {
+        "type": "Doctor",
+        "staffId": "473efbcc-3a2b-468f-90ba-d2d40a41585e",
+        "staffName": "a1",
+        "gender": "Male",
+        "dob": "2000-01-01",
+        "position": "Doctor",
+        "baseSalary": 999.0,
+        "attendance": [],
+        "specialization": "Pediatrician"
+    },
+    {
+        "type": "Staff",
+        "staffId": "a190c1bd-ceb6-4493-a161-037f995254a9",
+        "staffName": "a3",
+        "gender": "Female",
+        "dob": "2000-02-02",
+        "position": "Receptionist",
+        "baseSalary": 9999.0,
+        "attendance": []
+    }
 ]

@@ -20,7 +20,6 @@ void main() {
     });
 
     test('Save and Load Staff', () {
-      // Arrange: create sample staff
       var staff1 = Staff("Alice", "Female", "1990-01-01", Role.Receptionist, 2000);
       var doctor1 = Doctor("Bob", "Male", "1985-05-05", 5000, Specialization.Surgeon);
       var admin1 = Admin("Carol", "Female", "1992-03-03", 6000, "admin@test.com", "123456");
