@@ -1,0 +1,47 @@
+[
+  {
+    "type": "Admin",
+    "staffId": "admin-1",
+    "staffName": "Bopich",
+    "gender": "Female",
+    "dob": "1985-04-12",
+    "position": "Admin",
+    "baseSalary": 6000,
+    "email": "bopich.admin@example.com",
+    "password": "admin123",
+    "attendance": []
+  },
+  {
+    "type": "Doctor",
+    "staffId": "doc-1",
+    "staffName": "Darong",
+    "gender": "Male",
+    "dob": "1978-11-23",
+    "position": "Doctor",
+    "baseSalary": 8000,
+    "specialization": "Surgeon",
+    "attendance": []
+  },
+  {
+    "type": "Nurse",
+    "staffId": "nurse-1",
+    "staffName": "Praseth",
+    "gender": "Female",
+    "dob": "1990-06-17",
+    "position": "Nurse",
+    "baseSalary": 4000,
+    "certification": ["ICU", "Pediatrics"],
+    "yearOfExperince": 5,
+    "attendance": []
+  },
+  {
+    "type": "Staff",
+    "staffId": "rec-1",
+    "staffName": "Sokleaphea",
+    "gender": "Male",
+    "dob": "1995-02-05",
+    "position": "Receptionist",
+    "baseSalary": 3000,
+    "attendance": []
+  }
+]
