@@ -1,66 +1,84 @@
 [
-    {
-        "type": "Admin",
-        "staffId": "0698eaf7-721b-498e-aca6-a11fb4f56a88",
-        "staffName": "Bopich",
-        "gender": "Female",
-        "dob": "1985-04-12",
-        "position": "Admin",
-        "baseSalary": 6000.0,
-        "attendance": [],
-        "email": "admin@test.com",
-        "password": "admin123"
-    },
-    {
-        "type": "Doctor",
-        "staffId": "a98a9dbb-ea3b-4b57-8dc5-94de57797c70",
-        "staffName": "Darong",
-        "gender": "Male",
-        "dob": "1978-11-23",
-        "position": "Doctor",
-        "baseSalary": 8000.0,
-        "attendance": [],
-        "specialization": "Surgeon"
-    },
-    {
-        "type": "Staff",
-        "staffId": "4b46d92c-07a0-4282-abc0-976dc777fe30",
-        "staffName": "Praseth",
-        "gender": "Female",
-        "dob": "1990-06-17",
-        "position": "Nurse",
-        "baseSalary": 4000.0,
-        "attendance": []
-    },
-    {
-        "type": "Staff",
-        "staffId": "702b419d-ec06-4bc2-a94b-cb7f944f450a",
-        "staffName": "Sokleaphea",
-        "gender": "Male",
-        "dob": "1995-02-05",
-        "position": "Receptionist",
-        "baseSalary": 3000.0,
-        "attendance": []
-    },
-    {
-        "type": "Doctor",
-        "staffId": "473efbcc-3a2b-468f-90ba-d2d40a41585e",
-        "staffName": "a1",
-        "gender": "Male",
-        "dob": "2000-01-01",
-        "position": "Doctor",
-        "baseSalary": 999.0,
-        "attendance": [],
-        "specialization": "Pediatrician"
-    },
-    {
-        "type": "Staff",
-        "staffId": "a190c1bd-ceb6-4493-a161-037f995254a9",
-        "staffName": "a3",
-        "gender": "Female",
-        "dob": "2000-02-02",
-        "position": "Receptionist",
-        "baseSalary": 9999.0,
-        "attendance": []
-    }
+  {
+    "type": "Admin",
+    "staffId": "8368d5d4-7d66-4a4c-8925-4b1b1cce1428",
+    "staffName": "Bopick",
+    "gender": "Female",
+    "dob": "1985-04-12",
+    "position": "Admin",
+    "baseSalary": 0.0,
+    "attendance": [
+      {
+        "start": "2025-11-04T08:00:00",
+        "end": "2025-11-04T16:30:00"
+      }
+    ],
+    "email": "admin@test.com",
+    "password": "admin123"
+  },
+  {
+    "type": "Doctor",
+    "staffId": "bc610a79-78e0-4f30-983e-d281d8eca7d5",
+    "staffName": "Darong",
+    "gender": "Male",
+    "dob": "1978-11-23",
+    "position": "Doctor",
+    "baseSalary": 8000.0,
+    "attendance": [
+      {
+        "start": "2025-11-04T09:00:00",
+        "end": "2025-11-04T18:00:00"
+      }
+    ],
+    "specialization": "Surgeon"
+  },
+  {
+    "type": "Nurse",
+    "staffId": "4f973bcc-f0e5-402a-bb85-014b8e98eaf9",
+    "staffName": "Praseth",
+    "gender": "Male",
+    "dob": "01-01-2200",
+    "position": "Nurse",
+    "baseSalary": 0.0,
+    "attendance": [
+      {
+        "start": "2025-11-04T07:30:00",
+        "end": "2025-11-04T20:30:00"
+      }
+    ],
+    "certification": [
+      "ba healthscience"
+    ],
+    "yearOfExperince": 8
+  },
+  {
+    "type": "Staff",
+    "staffId": "8dc18a4c-305d-4ea3-a532-8a7c50a1d485",
+    "staffName": "Sokleaphea",
+    "gender": "Male",
+    "dob": "1995-02-05",
+    "position": "Receptionist",
+    "baseSalary": 3000.0,
+    "attendance": [
+      {
+        "start": "2025-11-04T08:30:00",
+        "end": "2025-11-04T20:00:00"
+      }
+    ]
+  },
+  {
+    "type": "Staff",
+    "staffId": "bfc9e972-daa8-4432-b751-fa87ebda5441",
+    "staffName": "Bopick",
+    "gender": "Male",
+    "dob": "01-01-2000",
+    "position": "Receptionist",
+    "baseSalary": 1000.0,
+    "attendance": [
+      {
+        "start": "2025-11-04T09:00:00",
+        "end": "2025-11-04T17:30:00"
+      }
+    ]
+  }
 ]

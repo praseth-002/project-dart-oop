@@ -28,14 +28,24 @@ void main() {
       expect(found!.staffName, equals('Darong'));
     });
 
+    // test('Search staff by name is case-insensitive', () {
+    //   final staff = Staff('Praseth', 'Male', '1995-05-05', Role.Receptionist, 1500);
+    //   hospital.addStaff(staff);
+
+    //   final found = hospital.searchStaffByName('Praseth');
+    //   expect(found, isNotNull);
+    //   expect(found!.staffName, equals('Praseth'));
+    // });
+
     test('Search staff by name is case-insensitive', () {
       final staff = Staff('Praseth', 'Male', '1995-05-05', Role.Receptionist, 1500);
       hospital.addStaff(staff);
 
-      final found = hospital.searchStaffByName('Praseth');
-      expect(found, isNotNull);
-      expect(found!.staffName, equals('Praseth'));
+      final foundList = hospital.searchStaffByName('praseth'); // lowercase to test case-insensitivity
+      expect(foundList, isNotEmpty);
+      expect(foundList.first.staffName, equals('Praseth'));
     });
+
 
     test('Edit staff info updates fields correctly', () {
       final staff = Staff('Leaphea', 'Male', '1990-07-07', Role.Nurse, 2000);

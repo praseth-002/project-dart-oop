@@ -9,7 +9,6 @@ class HospitalStaffConsole {
   final DataManager dataManager;
 
   HospitalStaffConsole(this.hospital, this.dataManager);
-  
 
   void adminDashboard(Admin admin) {
     while (true) {
@@ -29,9 +28,10 @@ class HospitalStaffConsole {
       String? input = stdin.readLineSync();
 
       switch (input) {
-        //add new staff 
+        //add new staff
         case '1':
-          stdout.writeln('\n------------------ ADD NEW STAFF ------------------');
+          stdout
+              .writeln('\n------------------ ADD NEW STAFF ------------------');
           stdout.writeln('\nPlease input the following staff information:');
           var name = _askLabel('Name');
           var gender = _askLabel('Gender');
@@ -48,14 +48,15 @@ class HospitalStaffConsole {
             stdout.writeln('DOB: $dob');
             stdout.writeln('Salary: $salary');
             stdout.writeln('Email: $email');
-            if (_isConfirm('Confrim add admin? (y/n):')){
-              hospital.addStaff(Admin(name, gender, dob, salary, email, password));
+            if (_isConfirm('Confrim add admin? (y/n):')) {
+              hospital
+                  .addStaff(Admin(name, gender, dob, salary, email, password));
               dataManager.saveStaff(hospital.staffs);
               stdout.writeln('Admin added successfully!');
-            }else{
-              stdout.write('-----------------Add Admin cancelled-----------------');
+            } else {
+              stdout.write(
+                  '-----------------Add Admin cancelled-----------------');
             }
-            
           } else if (role == Role.Doctor) {
             var specialization = _askSpeacialization();
             stdout.writeln('\nYou are about to add this Docotor:');
@@ -64,27 +65,68 @@ class HospitalStaffConsole {
             stdout.writeln('DOB: $dob');
             stdout.writeln('Salary: $salary');
             stdout.writeln('Email: $specialization');
-            if (_isConfirm('Confrim add doctor? (y/n):')){
-              hospital.addStaff(Doctor(name, gender, dob, salary, specialization));
+            if (_isConfirm('Confrim add doctor? (y/n):')) {
+              hospital
+                  .addStaff(Doctor(name, gender, dob, salary, specialization));
               dataManager.saveStaff(hospital.staffs);
               stdout.writeln('Doctor added successfully!');
-            }else{
-              stdout.write('-----------------Add Doctor cancelled-----------------');
+            } else {
+              stdout.write(
+                  '-----------------Add Doctor cancelled-----------------');
             }
-            
+
+            // } else if (role == Role.Nurse) {
+            //   stdout.writeln('\nYou are about to add this Nurse:');
+            //   stdout.writeln('Name: $name');
+            //   stdout.writeln('Gender: $gender');
+            //   stdout.writeln('DOB: $dob');
+            //   stdout.writeln('Salary: $salary');
+
+            //   if (_isConfirm('Confrim add nurse? (y/n):')){
+            //     hospital.addStaff(Nurse(name, gender, dob, salary));
+            //     dataManager.saveStaff(hospital.staffs);
+            //     stdout.writeln('Nurse added successfully!');
+            //   }else{
+            //     stdout.write('-----------------Add Nurse cancelled-----------------');
+            //   }
           } else if (role == Role.Nurse) {
+            stdout.writeln('\nYou are about to add this Nurse:');
+            stdout.writeln('Please input the following information:');
+            stdout.writeln('--------------------------------------');
+
+            var yearExpInput = _askLabel(
+                'Years of Experience (number, default 0)',
+                allowEmpty: true);
+            int yearOfExperience = int.tryParse(yearExpInput) ?? 0;
+
+            stdout.writeln(
+                'Enter certifications (comma-separated, or leave blank if none):');
+            String certInput = stdin.readLineSync() ?? '';
+            List<String> certifications = certInput
+                .split(',')
+                .map((c) => c.trim())
+                .where((c) => c.isNotEmpty)
+                .toList();
+
             stdout.writeln('\nYou are about to add this Nurse:');
             stdout.writeln('Name: $name');
             stdout.writeln('Gender: $gender');
             stdout.writeln('DOB: $dob');
             stdout.writeln('Salary: $salary');
+            stdout.writeln('Years of Experience: $yearOfExperience');
+            stdout.writeln(
+                'Certifications: ${certifications.isEmpty ? "None" : certifications.join(", ")}');
 
-            if (_isConfirm('Confrim add nurse? (y/n):')){
-              hospital.addStaff(Nurse(name, gender, dob, salary));
+            if (_isConfirm('Confirm add nurse? (y/n):')) {
+              var nurse = Nurse(name, gender, dob, salary,
+                  yearOfExperince: yearOfExperience);
+              nurse.certification = certifications;
+              hospital.addStaff(nurse);
               dataManager.saveStaff(hospital.staffs);
               stdout.writeln('Nurse added successfully!');
-            }else{
-              stdout.write('-----------------Add Nurse cancelled-----------------');
+            } else {
+              stdout.write(
+                  '----------------- Add Nurse cancelled -----------------');
             }
           } else if (role == Role.Receptionist) {
             stdout.writeln('\nYou are about to add this Receptionist:');
@@ -92,14 +134,15 @@ class HospitalStaffConsole {
             stdout.writeln('Gender: $gender');
             stdout.writeln('DOB: $dob');
             stdout.writeln('Salary: $salary');
-            if (_isConfirm('Confrim add receptionist? (y/n):')){
-              hospital.addStaff(Staff(name, gender, dob, Role.Receptionist, salary));
+            if (_isConfirm('Confrim add receptionist? (y/n):')) {
+              hospital.addStaff(
+                  Staff(name, gender, dob, Role.Receptionist, salary));
               dataManager.saveStaff(hospital.staffs);
-            stdout.writeln('Receptionist added successfully!');
-            }else{
-              stdout.write('-----------------Add Receptionist cancelled-----------------');
+              stdout.writeln('Receptionist added successfully!');
+            } else {
+              stdout.write(
+                  '-----------------Add Receptionist cancelled-----------------');
             }
-  
           }
           break;
 
@@ -113,187 +156,322 @@ class HospitalStaffConsole {
           break;
 
         case '3':
-        stdout.writeln('\n------------------ VIEW STAFF BY ROLE ------------------');
-        Role role = _askRole();
-        var staffByRole = hospital.viewStaffByRole(role);
+          stdout.writeln(
+              '\n------------------ VIEW STAFF BY ROLE ------------------');
+          Role role = _askRole();
+          var staffByRole = hospital.viewStaffByRole(role);
 
-        if(staffByRole.isEmpty){
-          stdout.write('There is no staff with that role $role');
-        }
+          if (staffByRole.isEmpty) {
+            stdout.write('There is no staff with that role $role');
+          }
 
-        stdout.writeln('\n\n============ STAFF INFORMATION ============\n');
+          stdout.writeln('\n\n============ STAFF INFORMATION ============\n');
           for (var staff in staffByRole) {
             stdout.writeln('------------------------------------------');
             staff.printInfo();
           }
           stdout.writeln('\n===================END======================\n');
-        break;
-        
+          break;
+
         case '4':
-        stdout.writeln('\n------------------ SEARCH STAFF ------------------');
-        
-        String input;
-        while (true) {
-          input = _askLabel('Search by (1) ID or (2) Name: ');
-          if (input == '1' || input == '2') break;
-          stdout.writeln('Invalid choice, please try again.\n');
-        }
+          stdout
+              .writeln('\n------------------ SEARCH STAFF ------------------');
 
-        if (input == '1') {
-          String id;
-          do {
-            id = _askLabel('Enter Staff ID: ').trim();
-            if (id.isEmpty) stdout.writeln('ID cannot be empty. Please try again.\n');
-          } while (id.isEmpty);
-
-          var staff = hospital.searchStaffById(id);
-          if (staff != null) {
-            stdout.writeln('\n=== STAFF FOUND ===');
-            staff.printInfo();
-          } else {
-            stdout.writeln('\nNo staff found with this ID.');
+          String input;
+          while (true) {
+            input = _askLabel('Search by (1) ID or (2) Name: ');
+            if (input == '1' || input == '2') break;
+            stdout.writeln('Invalid choice, please try again.\n');
           }
-        } 
-        else if (input == '2') {
-          String name;
-          do {
-            name = _askLabel('Enter Staff Name: ').trim();
-            if (name.isEmpty) stdout.writeln('Name cannot be empty. Please try again.\n');
-          } while (name.isEmpty);
 
-          var staff = hospital.searchStaffByName(name);
-          if (staff != null) {
-            stdout.writeln('\n=== STAFF FOUND ===');
-            staff.printInfo();
-          } else {
-            stdout.writeln('\nNo staff found with this name.');
-          }
-          }
-        break;
-      case '5':
-        stdout.writeln('\n\n============ EDIT STAFF INFORMATION ============\n');
+          if (input == '1') {
+            String id;
+            do {
+              id = _askLabel('Enter Staff ID: ').trim();
+              if (id.isEmpty)
+                stdout.writeln('ID cannot be empty. Please try again.\n');
+            } while (id.isEmpty);
 
-        // Ask for staff ID
-        String id = _askLabel("Input staff ID").trim();
+            var staff = hospital.searchStaffById(id);
+            if (staff != null) {
+              stdout.writeln('\n=== STAFF FOUND ===');
+              staff.printInfo();
+            } else {
+              stdout.writeln('\nNo staff found with this ID.');
+            }
+          } else if (input == '2') {
+            String name;
+            do {
+              name = _askLabel('Enter Staff Name: ').trim();
+              if (name.isEmpty)
+                stdout.writeln('Name cannot be empty. Please try again.\n');
+            } while (name.isEmpty);
 
-        Staff? staff = hospital.searchStaffById(id);
+            var staffList = hospital.searchStaffByName(name);
 
-        if (staff == null) {
-          stdout.writeln('\n No staff found with this ID.');
-          break; 
-        }
-
-        
-        stdout.writeln('\n=== STAFF FOUND ===');
-        staff.printInfo();
-
-        String newName = _askLabel("New Name (leave blank to keep)",allowEmpty: true).trim();
-        String newGender = _askLabel("New Gender (leave blank to keep)",allowEmpty: true).trim();
-        String newDob = _askLabel("New Date of Birth (leave blank to keep)", allowEmpty: true).trim();
-
-        String salaryInput = _askLabel("New Base Salary (leave blank to keep)").trim();
-        double? newBaseSalary = salaryInput.isNotEmpty ? double.tryParse(salaryInput) : null;
-
-        hospital.editStaffInfo(
-          staff,
-          name: newName.isNotEmpty ? newName : null,
-          gender: newGender.isNotEmpty ? newGender : null,
-          dob: newDob.isNotEmpty ? newDob : null,
-          baseSalary: newBaseSalary,
-        );
-
-        stdout.writeln("Staff information updated!");
-        dataManager.saveStaff(hospital.staffs);
-        staff.printInfo();
-        break;
-
-        case '6':
-        stdout.writeln('\n\n============ REMOVE STAFF ============\n');
-
-        String id = _askLabel("Input staff ID").trim();
-
-        Staff? staff = hospital.searchStaffById(id);
-
-        if (staff == null) {
-          stdout.writeln('\n No staff found with this ID.');
-          break; 
-        }
-
-        
-        stdout.writeln('\n=== STAFF FOUND ===');
-        staff.printInfo();
-
-        if (_isConfirm('Confrim remove staff (y/n):')){
-          hospital.removeStaffById(id);
-          dataManager.saveStaff(hospital.staffs);
-          stdout.writeln('Staff remove successfully!');
-          }else{
-              stdout.write('-----------------Remove Staff cancelled-----------------');
+            if (staffList.isNotEmpty) {
+              stdout.writeln('\n=== STAFF FOUND ===');
+              for (var staff in staffList) {
+                staff.printInfo();
+                stdout.writeln('------------------------------------------');
+              }
+            } else {
+              stdout.writeln('\nNo staff found with this name.');
             }
 
-        break;
-        case '7':
-        stdout.writeln('\n\n============ RECORD STAFF ATTENDANCE ============\n');
-        String id = _askLabel("Input staff ID").trim();
+            // String name;
+            // do {
+            //   name = _askLabel('Enter Staff Name: ').trim();
+            //   if (name.isEmpty) stdout.writeln('Name cannot be empty. Please try again.\n');
+            // } while (name.isEmpty);
 
-        Staff? staff = hospital.searchStaffById(id);
-
-        if (staff == null) {
-          stdout.writeln('\n No staff found with this ID.');
-          break; 
-        }
-        stdout.writeln('\n=== STAFF FOUND ===');
-        staff.printInfo();
-        stdout.writeln('\nEnter attendance time details (format: yyyy-MM-dd HH:mm)');
-        DateTime? start = _inputDateTime("Start time");
-        DateTime? end = _inputDateTime("End time");
-        if (end.isBefore(start)) {
-          stdout.writeln(' End time cannot be before start time!');
-        return;
-        }
-        hospital.recordAttendance(staff, start, end);
-        dataManager.saveStaff(hospital.staffs);
-        stdout.writeln('\nAttendance recorded successfully!');
-        break;
-        case '8':
-        stdout.writeln('\n\n============ CALCULATE TOTAL SALARY ============\n');
-        String id = _askLabel("Input staff ID").trim();
-
-        Staff? staff = hospital.searchStaffById(id);
-
-        if (staff == null) {
-          stdout.writeln('\n No staff found with this ID.');
-          break; 
-        }
-        stdout.writeln('\n=== STAFF FOUND ===');
-        staff.printInfo();
-
-        double totalSalary = hospital.staffTotalSalary(staff);
-        stdout.writeln('Base Salary: \$${staff.baseSalary.toStringAsFixed(2)}');
-        stdout.writeln('Total Salary (with bonuses & overtime): \$${totalSalary.toStringAsFixed(2)}');
-        break;
-
-        case '9' :
-        stdout.writeln('\n============ TOTAL SALARY OF ALL STAFF ============\n');
-        if (hospital.staffs.isEmpty) {
-          stdout.writeln('No staff in the system.');
+            // var staff = hospital.searchStaffByName(name);
+            // if (staff != null) {
+            //   stdout.writeln('\n=== STAFF FOUND ===');
+            //   staff.printInfo();
+            // } else {
+            //   stdout.writeln('\nNo staff found with this name.');
+            // }
+          }
           break;
-        }
+        // case '5':
+        //   stdout.writeln('\n\n============ EDIT STAFF INFORMATION ============\n');
 
-        double totalAllSalary = 0;
-        for (var staff in hospital.staffs) {
+        //   // Ask for staff ID
+        //   String id = _askLabel("Input staff ID").trim();
+
+        //   Staff? staff = hospital.searchStaffById(id);
+
+        //   if (staff == null) {
+        //     stdout.writeln('\n No staff found with this ID.');
+        //     break;
+        //   }
+
+        //   stdout.writeln('\n=== STAFF FOUND ===');
+        //   staff.printInfo();
+
+        //   String newName = _askLabel("New Name (leave blank to keep)",allowEmpty: true).trim();
+        //   String newGender = _askLabel("New Gender (leave blank to keep)",allowEmpty: true).trim();
+        //   String newDob = _askLabel("New Date of Birth (leave blank to keep)", allowEmpty: true).trim();
+
+        //   // String salaryInput = _askLabel("New Base Salary (leave blank to keep)").trim();
+        //   String salaryInput = _askLabel("New Base Salary (leave blank to keep)", allowEmpty: true).trim();
+        //   double? newBaseSalary = salaryInput.isNotEmpty ? double.tryParse(salaryInput) : null;
+
+        //   hospital.editStaffInfo(
+        //     staff,
+        //     name: newName.isNotEmpty ? newName : null,
+        //     gender: newGender.isNotEmpty ? newGender : null,
+        //     dob: newDob.isNotEmpty ? newDob : null,
+        //     baseSalary: newBaseSalary,
+        //   );
+
+        //   if (staff is Doctor) {
+        //     stdout.writeln('\nEditing Doctor-specific info:');
+        //     String newSpec = _askLabel("New specialization (leave blank to keep)", allowEmpty: true).trim();
+        //     if (newSpec.isNotEmpty) {
+        //       try {
+        //         staff.specialization = Specialization.values.firstWhere(
+        //           (s) => s.name.toLowerCase() == newSpec.toLowerCase(),
+        //         );
+        //       } catch (e) {
+        //         stdout.writeln('Invalid specialization. Keeping existing value.');
+        //       }
+        //     }
+        //   } else if (staff is Nurse) {
+        //     stdout.writeln('\nEditing Nurse-specific info:');
+
+        //     String expInput = _askLabel("New years of experience (leave blank to keep)", allowEmpty: true).trim();
+        //     if (expInput.isNotEmpty) {
+        //       int? newExp = int.tryParse(expInput);
+        //       if (newExp != null) staff.yearOfExperince = newExp;
+        //     }
+
+        //     String certInput = _askLabel("New certifications (comma-separated, leave blank to keep)", allowEmpty: true).trim();
+        //     if (certInput.isNotEmpty) {
+        //       staff.certification = certInput
+        //           .split(',')
+        //           .map((c) => c.trim())
+        //           .where((c) => c.isNotEmpty)
+        //           .toList();
+        //     }
+        //   }
+
+        //   stdout.writeln("Staff information updated!");
+        //   dataManager.saveStaff(hospital.staffs);
+        //   staff.printInfo();
+        //   break;
+
+        case '5':
+          stdout.writeln(
+              '\n\n============ EDIT STAFF INFORMATION ============\n');
+
+          // Ask for staff ID
+          String id = _askLabel("Input staff ID").trim();
+
+          Staff? staff = hospital.searchStaffById(id);
+
+          if (staff == null) {
+            stdout.writeln('\nNo staff found with this ID.');
+            break;
+          }
+
+          stdout.writeln('\n=== STAFF FOUND ===');
+          staff.printInfo();
+
+          String newName =
+              _askLabel("New Name (leave blank to keep)", allowEmpty: true)
+                  .trim();
+          String newGender =
+              _askLabel("New Gender (leave blank to keep)", allowEmpty: true)
+                  .trim();
+          String newDob = _askLabel("New Date of Birth (leave blank to keep)",
+                  allowEmpty: true)
+              .trim();
+
+          String salaryInput = _askLabel(
+                  "New Base Salary (leave blank to keep)",
+                  allowEmpty: true)
+              .trim();
+          double? newBaseSalary =
+              salaryInput.isNotEmpty ? double.tryParse(salaryInput) : null;
+
+          hospital.editStaffInfo(
+            staff,
+            name: newName.isNotEmpty ? newName : null,
+            gender: newGender.isNotEmpty ? newGender : null,
+            dob: newDob.isNotEmpty ? newDob : null,
+            baseSalary: newBaseSalary,
+          );
+
+          if (staff is Doctor && _isConfirm('Change specialization? (y/n): ')) {
+            var newSpec = _askSpeacialization();
+            hospital.editStaffInfo(staff, specialization: newSpec);
+          } else if (staff is Nurse) {
+            String expInput = _askLabel(
+                    "New years of experience (leave blank to keep)",
+                    allowEmpty: true)
+                .trim();
+            int? newExp = expInput.isNotEmpty ? int.tryParse(expInput) : null;
+
+            String certInput = _askLabel(
+                    "New certifications (comma-separated, leave blank to keep)",
+                    allowEmpty: true)
+                .trim();
+            List<String>? newCerts = certInput.isNotEmpty
+                ? certInput
+                    .split(',')
+                    .map((c) => c.trim())
+                    .where((c) => c.isNotEmpty)
+                    .toList()
+                : null;
+
+            hospital.editStaffInfo(
+              staff,
+              yearOfExperince: newExp,
+              certifications: newCerts,
+            );
+          }
+
+          stdout.writeln("\nStaff information updated!");
+          dataManager.saveStaff(hospital.staffs);
+          staff.printInfo();
+          break;
+
+        case '6':
+          stdout.writeln('\n\n============ REMOVE STAFF ============\n');
+
+          String id = _askLabel("Input staff ID").trim();
+
+          Staff? staff = hospital.searchStaffById(id);
+
+          if (staff == null) {
+            stdout.writeln('\n No staff found with this ID.');
+            break;
+          }
+
+          stdout.writeln('\n=== STAFF FOUND ===');
+          staff.printInfo();
+
+          if (_isConfirm('Confrim remove staff (y/n):')) {
+            hospital.removeStaffById(id);
+            dataManager.saveStaff(hospital.staffs);
+            stdout.writeln('Staff remove successfully!');
+          } else {
+            stdout.write(
+                '-----------------Remove Staff cancelled-----------------');
+          }
+
+          break;
+        case '7':
+          stdout.writeln(
+              '\n\n============ RECORD STAFF ATTENDANCE ============\n');
+          String id = _askLabel("Input staff ID").trim();
+
+          Staff? staff = hospital.searchStaffById(id);
+
+          if (staff == null) {
+            stdout.writeln('\n No staff found with this ID.');
+            break;
+          }
+          stdout.writeln('\n=== STAFF FOUND ===');
+          staff.printInfo();
+          stdout.writeln(
+              '\nEnter attendance time details (format: yyyy-MM-dd HH:mm)');
+          DateTime? start = _inputDateTime("Start time");
+          DateTime? end = _inputDateTime("End time");
+          if (end.isBefore(start)) {
+            stdout.writeln(' End time cannot be before start time!');
+            return;
+          }
+          hospital.recordAttendance(staff, start, end);
+          dataManager.saveStaff(hospital.staffs);
+          stdout.writeln('\nAttendance recorded successfully!');
+          break;
+        case '8':
+          stdout.writeln(
+              '\n\n============ CALCULATE TOTAL SALARY ============\n');
+          String id = _askLabel("Input staff ID").trim();
+
+          Staff? staff = hospital.searchStaffById(id);
+
+          if (staff == null) {
+            stdout.writeln('\n No staff found with this ID.');
+            break;
+          }
+          stdout.writeln('\n=== STAFF FOUND ===');
+          staff.printInfo();
+
           double totalSalary = hospital.staffTotalSalary(staff);
-          totalAllSalary += totalSalary;
+          stdout
+              .writeln('Base Salary: \$${staff.baseSalary.toStringAsFixed(2)}');
+          stdout.writeln(
+              'Total Salary (with bonuses & overtime): \$${totalSalary.toStringAsFixed(2)}');
+          break;
 
-          stdout.writeln('ID: ${staff.staffId}');
-          stdout.writeln('Name: ${staff.staffName}');
-          stdout.writeln('Role: ${staff.position.name}');
-          stdout.writeln('Total Salary: \$${totalSalary.toStringAsFixed(2)}');
-          stdout.writeln('------------------------------------------');
-        }
+        case '9':
+          stdout.writeln(
+              '\n============ TOTAL SALARY OF ALL STAFF ============\n');
+          if (hospital.staffs.isEmpty) {
+            stdout.writeln('No staff in the system.');
+            break;
+          }
 
-        stdout.writeln('Total Salary for All Staff: \$${totalAllSalary.toStringAsFixed(2)}');
-        break;
+          double totalAllSalary = 0;
+          for (var staff in hospital.staffs) {
+            double totalSalary = hospital.staffTotalSalary(staff);
+            totalAllSalary += totalSalary;
+
+            stdout.writeln('ID: ${staff.staffId}');
+            stdout.writeln('Name: ${staff.staffName}');
+            stdout.writeln('Role: ${staff.position.name}');
+            stdout.writeln('Total Salary: \$${totalSalary.toStringAsFixed(2)}');
+            stdout.writeln('------------------------------------------');
+          }
+
+          stdout.writeln(
+              'Total Salary for All Staff: \$${totalAllSalary.toStringAsFixed(2)}');
+          break;
 
         case '10':
           stdout.writeln('\nLogging out...');
@@ -356,7 +534,7 @@ class HospitalStaffConsole {
   void startSystem() {
     const String welcomeText = 'HOSPITAL STAFF MANAGEMENT SYSTEM';
 
-    final fontPath = '../../assets/mini.flf';
+    final fontPath = '../assets/mini.flf';
     final file = File(fontPath);
     if (!file.existsSync()) {
       stderr.writeln('Font file not found: $fontPath');
@@ -374,100 +552,95 @@ class HospitalStaffConsole {
 
   //helper function for user input
   String _askLabel(String label, {bool allowEmpty = false}) {
-  while (true) {
-    stdout.write('$label: ');
-    String? input = stdin.readLineSync();
+    while (true) {
+      stdout.write('$label: ');
+      String? input = stdin.readLineSync();
 
-    if (input == null) {
-      stdout.writeln('Input cannot be null.');
-      continue;
-    }
+      if (input == null) {
+        stdout.writeln('Input cannot be null.');
+        continue;
+      }
 
-    input = input.trim();
+      input = input.trim();
 
-    if (input.isEmpty && !allowEmpty) {
-      stdout.writeln('Please enter a value.');
-      continue;
-    }
+      if (input.isEmpty && !allowEmpty) {
+        stdout.writeln('Please enter a value.');
+        continue;
+      }
 
-    return input;
+      return input;
     }
   }
-
 
   double _inputSalary() {
     while (true) {
-    stdout.write('Base salary: ');
-    String? input = stdin.readLineSync();
-
-    if (input == null || input.trim().isEmpty) {
-      stdout.writeln('Salary cannot be empty. Please enter a valid number.');
-      continue;
-    }
-
-    double? salary = double.tryParse(input.trim());
-    if (salary == null || salary <= 0) {
-      stdout.writeln('Invalid salary. Please enter a positive number.');
-      continue;
-    }
-
-    return salary;
-  }
-    }
-  }
-
-
-
-  Role _askRole() {
-    stdout.writeln('\nChoose role:');
-    for (var i = 0; i < Role.values.length; i++) {
-      stdout.writeln('${i + 1}). ${Role.values[i].name}');
-    }
-
-    while (true) {
-      stdout.write('\nYour choice:');
-      var input = stdin.readLineSync();
-      var index = int.tryParse(input ?? '');
-      if (index != null && index >= 1 && index <= Role.values.length) {
-        return Role.values[index - 1];
-      } else {
-        stdout.write('Invalid role please try again');
-      }
-    }
-  }
-
-  bool _isConfirm (String prompt) {
-    while(true) {
-      stdout.write(prompt);
+      stdout.write('Base salary: ');
       String? input = stdin.readLineSync();
-      if (input == null) continue;
-      var cleanInput = input.trim().toLowerCase();
-      if (cleanInput == 'y'|| cleanInput ==  'yes' ) return true;
-      if (cleanInput == 'n'|| cleanInput ==  'n' ) return false;
-    }
-  }
 
-  Specialization _askSpeacialization() {
-    stdout.writeln('\nChoose specailization:');
-    for (var i = 0; i < Specialization.values.length; i++) {
-      stdout.writeln('${i + 1}). ${Specialization.values[i].name}');
-    }
-
-    while (true) {
-      stdout.write('Your choice:');
-      var input = stdin.readLineSync();
-      var index = int.tryParse(input ?? '');
-      if (index != null &&
-          index >= 1 &&
-          index <= Specialization.values.length) {
-        return Specialization.values[index - 1];
-      } else {
-        stdout.write('Invalid Specialzation please try again');
+      if (input == null || input.trim().isEmpty) {
+        stdout.writeln('Salary cannot be empty. Please enter a valid number.');
+        continue;
       }
+
+      double? salary = double.tryParse(input.trim());
+      if (salary == null || salary <= 0) {
+        stdout.writeln('Invalid salary. Please enter a positive number.');
+        continue;
+      }
+
+      return salary;
     }
   }
+}
 
-  DateTime _inputDateTime(String label) {
+Role _askRole() {
+  stdout.writeln('\nChoose role:');
+  for (var i = 0; i < Role.values.length; i++) {
+    stdout.writeln('${i + 1}). ${Role.values[i].name}');
+  }
+
+  while (true) {
+    stdout.write('\nYour choice:');
+    var input = stdin.readLineSync();
+    var index = int.tryParse(input ?? '');
+    if (index != null && index >= 1 && index <= Role.values.length) {
+      return Role.values[index - 1];
+    } else {
+      stdout.write('Invalid role please try again');
+    }
+  }
+}
+
+bool _isConfirm(String prompt) {
+  while (true) {
+    stdout.write(prompt);
+    String? input = stdin.readLineSync();
+    if (input == null) continue;
+    var cleanInput = input.trim().toLowerCase();
+    if (cleanInput == 'y' || cleanInput == 'yes') return true;
+    if (cleanInput == 'n' || cleanInput == 'n') return false;
+  }
+}
+
+Specialization _askSpeacialization() {
+  stdout.writeln('\nChoose specailization:');
+  for (var i = 0; i < Specialization.values.length; i++) {
+    stdout.writeln('${i + 1}). ${Specialization.values[i].name}');
+  }
+
+  while (true) {
+    stdout.write('Your choice:');
+    var input = stdin.readLineSync();
+    var index = int.tryParse(input ?? '');
+    if (index != null && index >= 1 && index <= Specialization.values.length) {
+      return Specialization.values[index - 1];
+    } else {
+      stdout.write('Invalid Specialzation please try again');
+    }
+  }
+}
+
+DateTime _inputDateTime(String label) {
   while (true) {
     stdout.write('$label (yyyy-MM-dd HH:mm): ');
     String? input = stdin.readLineSync();
@@ -484,7 +657,6 @@ class HospitalStaffConsole {
     }
   }
 }
-
 
 // void main() {
 //   Hospital hospital = Hospital("TESTING");
