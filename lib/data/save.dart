@@ -10,8 +10,21 @@ class DataManager {
   /// Save a list of staff to the JSON file
   void saveStaff(List<Staff> staffList) {
     final file = File(filePath);
-    final data = staffList.map((s) => s.toJson()).toList();
-    file.writeAsStringSync(jsonEncode(data));
+    // Load existing staff first
+    List<Staff> existingStaff = loadStaff();
+
+    // Update existing staff or add new ones
+    for (var newStaff in staffList) {
+      int index = existingStaff.indexWhere((s) => s.staffId == newStaff.staffId);
+      if (index >= 0) {
+        existingStaff[index] = newStaff; 
+      } else {
+        existingStaff.add(newStaff); 
+      }
+    }
+    const encoder = JsonEncoder.withIndent('  '); 
+    final jsonString = encoder.convert(existingStaff.map((s) => s.toJson()).toList());
+    file.writeAsStringSync(jsonString);
   }
 
   /// Load staff from JSON file

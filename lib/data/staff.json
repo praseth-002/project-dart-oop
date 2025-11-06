@@ -1,7 +1,7 @@
 [
   {
     "type": "Admin",
-    "staffId": "8368d5d4-7d66-4a4c-8925-4b1b1cce1428",
+    "staffId": "da00e76e-2534-43f2-8175-b5f08be2a682",
     "staffName": "Bopick",
     "gender": "Female",
     "dob": "1985-04-12",
@@ -9,8 +9,8 @@
     "baseSalary": 0.0,
     "attendance": [
       {
-        "start": "2025-11-04T08:00:00",
-        "end": "2025-11-04T16:30:00"
+        "start": "2025-11-04T08:00:00.000",
+        "end": "2025-11-04T16:30:00.000"
       }
     ],
     "email": "admin@test.com",
@@ -18,7 +18,7 @@
   },
   {
     "type": "Doctor",
-    "staffId": "bc610a79-78e0-4f30-983e-d281d8eca7d5",
+    "staffId": "c345cdae-3042-45ac-979c-f3a2999df22c",
     "staffName": "Darong",
     "gender": "Male",
     "dob": "1978-11-23",
@@ -26,15 +26,15 @@
     "baseSalary": 8000.0,
     "attendance": [
       {
-        "start": "2025-11-04T09:00:00",
-        "end": "2025-11-04T18:00:00"
+        "start": "2025-11-04T09:00:00.000",
+        "end": "2025-11-04T18:00:00.000"
       }
     ],
     "specialization": "Surgeon"
   },
   {
     "type": "Nurse",
-    "staffId": "4f973bcc-f0e5-402a-bb85-014b8e98eaf9",
+    "staffId": "84f0ffa6-f91a-4aed-9134-3845d50fbfc4",
     "staffName": "Praseth",
     "gender": "Male",
     "dob": "01-01-2200",
@@ -42,8 +42,8 @@
     "baseSalary": 0.0,
     "attendance": [
       {
-        "start": "2025-11-04T07:30:00",
-        "end": "2025-11-04T20:30:00"
+        "start": "2025-11-04T07:30:00.000",
+        "end": "2025-11-04T20:30:00.000"
       }
     ],
     "certification": [
@@ -53,7 +53,7 @@
   },
   {
     "type": "Staff",
-    "staffId": "8dc18a4c-305d-4ea3-a532-8a7c50a1d485",
+    "staffId": "7a0044f6-0f84-423e-83f6-49ceacdb6950",
     "staffName": "Sokleaphea",
     "gender": "Male",
     "dob": "1995-02-05",
@@ -61,14 +61,14 @@
     "baseSalary": 3000.0,
     "attendance": [
       {
-        "start": "2025-11-04T08:30:00",
-        "end": "2025-11-04T20:00:00"
+        "start": "2025-11-04T08:30:00.000",
+        "end": "2025-11-04T20:00:00.000"
       }
     ]
   },
   {
     "type": "Staff",
-    "staffId": "bfc9e972-daa8-4432-b751-fa87ebda5441",
+    "staffId": "2224b451-3e27-4a07-8f56-7a38a4831a99",
     "staffName": "Bopick",
     "gender": "Male",
     "dob": "01-01-2000",
@@ -76,9 +76,102 @@
     "baseSalary": 1000.0,
     "attendance": [
       {
-        "start": "2025-11-04T09:00:00",
-        "end": "2025-11-04T17:30:00"
+        "start": "2025-11-04T09:00:00.000",
+        "end": "2025-11-04T17:30:00.000"
       }
     ]
+  },
+  {
+    "type": "Admin",
+    "staffId": "f0d995ab-f31f-4835-959a-3404aa55d856",
+    "staffName": "Bopick",
+    "gender": "Female",
+    "dob": "1985-04-12",
+    "position": "Admin",
+    "baseSalary": 0.0,
+    "attendance": [
+      {
+        "start": "2025-11-04T08:00:00.000",
+        "end": "2025-11-04T16:30:00.000"
+      }
+    ],
+    "email": "admin@test.com",
+    "password": "admin123"
+  },
+  {
+    "type": "Doctor",
+    "staffId": "224dbcc4-da33-4a61-8a60-38fb2976fe3f",
+    "staffName": "Darong",
+    "gender": "Male",
+    "dob": "1978-11-23",
+    "position": "Doctor",
+    "baseSalary": 8000.0,
+    "attendance": [
+      {
+        "start": "2025-11-04T09:00:00.000",
+        "end": "2025-11-04T18:00:00.000"
+      }
+    ],
+    "specialization": "Surgeon"
+  },
+  {
+    "type": "Nurse",
+    "staffId": "9ac85a18-e0f6-4833-9edb-6d2991603d1b",
+    "staffName": "Praseth",
+    "gender": "Male",
+    "dob": "01-01-2200",
+    "position": "Nurse",
+    "baseSalary": 0.0,
+    "attendance": [
+      {
+        "start": "2025-11-04T07:30:00.000",
+        "end": "2025-11-04T20:30:00.000"
+      }
+    ],
+    "certification": [
+      "ba healthscience"
+    ],
+    "yearOfExperince": 8
+  },
+  {
+    "type": "Staff",
+    "staffId": "c5a61981-065d-4d54-8974-94d3b21ef4f1",
+    "staffName": "Sokleaphea",
+    "gender": "Male",
+    "dob": "1995-02-05",
+    "position": "Receptionist",
+    "baseSalary": 3000.0,
+    "attendance": [
+      {
+        "start": "2025-11-04T08:30:00.000",
+        "end": "2025-11-04T20:00:00.000"
+      }
+    ]
+  },
+  {
+    "type": "Staff",
+    "staffId": "10dfc68d-6fce-425e-9d13-0f6128b81955",
+    "staffName": "Bopick",
+    "gender": "Male",
+    "dob": "01-01-2000",
+    "position": "Receptionist",
+    "baseSalary": 1000.0,
+    "attendance": [
+      {
+        "start": "2025-11-04T09:00:00.000",
+        "end": "2025-11-04T17:30:00.000"
+      }
+    ]
+  },
+  {
+    "type": "Doctor",
+    "staffId": "26127e63-301e-4824-a926-9a97dc54d2e0",
+    "staffName": "darong",
+    "gender": "male",
+    "dob": "06/12/2006",
+    "position": "Doctor",
+    "baseSalary": 200.0,
+    "attendance": [],
+    "specialization": "General"
   }
 ]

@@ -59,7 +59,7 @@ class HospitalStaffConsole {
             }
           } else if (role == Role.Doctor) {
             var specialization = _askSpeacialization();
-            stdout.writeln('\nYou are about to add this Docotor:');
+            stdout.writeln('\nYou are about to add this Doctor:');
             stdout.writeln('Name: $name');
             stdout.writeln('Gender: $gender');
             stdout.writeln('DOB: $dob');
@@ -188,8 +188,9 @@ class HospitalStaffConsole {
             String id;
             do {
               id = _askLabel('Enter Staff ID: ').trim();
-              if (id.isEmpty)
+              if (id.isEmpty) {
                 stdout.writeln('ID cannot be empty. Please try again.\n');
+              }
             } while (id.isEmpty);
 
             var staff = hospital.searchStaffById(id);
