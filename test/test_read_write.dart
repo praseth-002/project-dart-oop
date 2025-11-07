@@ -20,9 +20,9 @@ void main() {
     });
 
     test('Save and Load Staff', () {
-      var staff1 = Staff("Alice", "Female", "1990-01-01", Role.Receptionist, 2000);
-      var doctor1 = Doctor("Bob", "Male", "1985-05-05", 5000, Specialization.Surgeon);
-      var admin1 = Admin("Carol", "Female", "1992-03-03", 6000, "admin@test.com", "123456");
+      var staff1 = Staff("s1", "Female", "2000-01-01", Role.Receptionist, 2000);
+      var doctor1 = Doctor("d1", "Male", "2000-02-02", 5000, Specialization.Surgeon);
+      var admin1 = Admin("a1", "Female", "2000-03-03", 6000, "admin@test.com", "123456");
 
       var staffList = [staff1, doctor1, admin1];
 
@@ -36,7 +36,7 @@ void main() {
       expect(loadedList[1], isA<Doctor>());
       expect(loadedList[2], isA<Admin>());
 
-      expect(loadedList[0].staffName, "Alice");
+      expect(loadedList[0].staffName, "s1");
       expect((loadedList[1] as Doctor).specialization, Specialization.Surgeon);
       expect((loadedList[2] as Admin).email, "admin@test.com");
     });

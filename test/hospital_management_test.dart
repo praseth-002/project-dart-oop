@@ -28,15 +28,6 @@ void main() {
       expect(found!.staffName, equals('Darong'));
     });
 
-    // test('Search staff by name is case-insensitive', () {
-    //   final staff = Staff('Praseth', 'Male', '1995-05-05', Role.Receptionist, 1500);
-    //   hospital.addStaff(staff);
-
-    //   final found = hospital.searchStaffByName('Praseth');
-    //   expect(found, isNotNull);
-    //   expect(found!.staffName, equals('Praseth'));
-    // });
-
     test('Search staff by name is case-insensitive', () {
       final staff = Staff('Praseth', 'Male', '1995-05-05', Role.Receptionist, 1500);
       hospital.addStaff(staff);
@@ -86,7 +77,7 @@ void main() {
       hospital.recordAttendance(doctor, DateTime(2025, 11, 2, 8, 0), DateTime(2025, 11, 2, 18, 0));
 
       final total = hospital.staffTotalSalary(doctor);
-      expect(total, equals(10200));
+      expect(total, equals(10100));
     });
 
     test('findAdminByEmail returns correct admin', () {

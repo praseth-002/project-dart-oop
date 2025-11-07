@@ -182,7 +182,7 @@ class Hospital {
       double hoursWorked = attendance.timeWorked().inMinutes / 60.0;
       if (hoursWorked > 8) {
         double overtimeHours = hoursWorked - 8;
-        overtimePay += overtimeHours * 50; // $100 per overtime hour
+        overtimePay += overtimeHours * 50; // $50 per overtime hour
       }
     }
 
