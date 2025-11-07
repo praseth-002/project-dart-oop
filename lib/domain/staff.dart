@@ -22,6 +22,15 @@ class Staff {
     this._position,
     this._baseSalary,
   ) : _staffId = uuid.v4();
+  // constructor for read staff from file
+  Staff._fromData(
+    this._staffId,
+    this._staffName,
+    this._gender,
+    this._dob,
+    this._position,
+    this._baseSalary,
+  );
 
   // Getters & Setters
   String get staffId => _staffId;
@@ -64,7 +73,8 @@ class Staff {
       };
 
   factory Staff.fromJson(Map<String, dynamic> json) {
-    var staff = Staff(
+    var staff = Staff._fromData(
+      json['staffId'],
       json['staffName'],
       json['gender'],
       json['dob'],
@@ -93,6 +103,16 @@ class Doctor extends Staff {
     this.specialization,
   ) : super(staffName, gender, dob, Role.Doctor, baseSalary);
 
+  Doctor._fromData(
+    String staffId,
+    String staffName,
+    String gender,
+    String dob,
+    double baseSalary,
+    this.specialization,
+  ) : super._fromData(staffId, staffName, gender, dob, Role.Doctor, baseSalary);
+
+
   @override
   void printInfo() {
     super.printInfo();
@@ -108,7 +128,8 @@ class Doctor extends Staff {
   }
 
   factory Doctor.fromJson(Map<String, dynamic> json) {
-    var doc = Doctor(
+    var doc = Doctor._fromData(
+      json['staffId'],
       json['staffName'],
       json['gender'],
       json['dob'],
@@ -138,6 +159,18 @@ class Nurse extends Staff {
     this.yearOfExperince = 0,
   }) : super(staffName, gender, dob, Role.Nurse, baseSalary);
 
+  Nurse._fromData(
+    String staffId,
+    String staffName,
+    String gender,
+    String dob,
+    double baseSalary, {
+    this.yearOfExperince = 0,
+    List<String>? certifications,
+  }) : super._fromData(staffId, staffName, gender, dob, Role.Nurse, baseSalary) {
+    if (certifications != null) this.certification = certifications;
+  }
+
   @override
   void printInfo() {
     super.printInfo();
@@ -155,7 +188,8 @@ class Nurse extends Staff {
   }
 
   factory Nurse.fromJson(Map<String, dynamic> json) {
-    var nurse = Nurse(
+    var nurse = Nurse._fromData(
+      json['staffId'],
       json['staffName'],
       json['gender'],
       json['dob'],
@@ -188,6 +222,16 @@ class Admin extends Staff {
     this.password,
   ) : super(staffName, gender, dob, Role.Admin, baseSalary);
 
+  Admin._fromData(
+    String staffId,
+    String staffName,
+    String gender,
+    String dob,
+    double baseSalary,
+    this.email,
+    this.password,
+  ) : super._fromData(staffId, staffName, gender, dob, Role.Admin, baseSalary);
+
   bool isAuthenticated(String inputEmail, String inputPassword) =>
       email == inputEmail && password == inputPassword;
 
@@ -207,7 +251,8 @@ class Admin extends Staff {
   }
 
   factory Admin.fromJson(Map<String, dynamic> json) {
-    var admin = Admin(
+    var admin = Admin._fromData(
+      json['staffId'],
       json['staffName'],
       json['gender'],
       json['dob'],

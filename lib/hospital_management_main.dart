@@ -4,7 +4,7 @@ import './domain/hospital.dart';
 import './ui/hospital_staff_console.dart';
 
 void main() {
-  final filePath = 'data/staff.json';
+  final filePath = 'data/demo.json';
   final dataManager = DataManager(filePath);
 
   List<Staff> staffList = dataManager.loadStaff();
@@ -17,7 +17,6 @@ void main() {
   HospitalStaffConsole console = HospitalStaffConsole(hospital, dataManager);
 
   console.startSystem();
-  console.authenticationInterface();
 
   dataManager.saveStaff(hospital.staffs);
 }

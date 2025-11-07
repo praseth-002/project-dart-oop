@@ -549,6 +549,7 @@ class HospitalStaffConsole {
     final asciiArt = FIGlet.renderFIGure(welcomeText, font);
 
     stdout.writeln(asciiArt);
+    authenticationInterface();
   }
 
   //helper function for user input

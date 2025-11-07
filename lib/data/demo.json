@@ -1,0 +1,49 @@
+[
+  {
+    "type": "Admin",
+    "staffId": "a1b2c3d4-0001",
+    "staffName": "Bopick",
+    "gender": "Female",
+    "dob": "1985-04-12",
+    "position": "Admin",
+    "baseSalary": 0.0,
+    "attendance": [
+      {
+        "start": "2025-11-04T08:00:00.000",
+        "end": "2025-11-04T16:30:00.000"
+      }
+    ],
+    "email": "admin@test.com",
+    "password": "admin123"
+  },
+  {
+    "type": "Doctor",
+    "staffId": "a1b2c3d4-0002",
+    "staffName": "Darong",
+    "gender": "Male",
+    "dob": "2000-06-12",
+    "position": "Doctor",
+    "baseSalary": 8000.0,
+    "attendance": [
+      {
+        "start": "2025-11-03T08:30:00.000",
+        "end": "2025-11-03T20:30:00.000"
+      },
+      {
+        "start": "2025-10-07T07:30:00.000",
+        "end": "2025-10-07T22:30:00.000"
+      }
+    ],
+    "specialization": "Surgeon"
+  },
+  {
+    "type": "Staff",
+    "staffId": "acbfc55e-e561-481c-8147-1982aafaa6ee",
+    "staffName": "darongSeang",
+    "gender": "male",
+    "dob": "06/12/2006",
+    "position": "Receptionist",
+    "baseSalary": 300.0,
+    "attendance": []
+  }
+]
