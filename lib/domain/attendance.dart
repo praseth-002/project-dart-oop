@@ -11,7 +11,7 @@ class Attendance {
         'end': end.toIso8601String(),
       };
 
-  factory Attendance.fromJson(Map<String, Object> json) => Attendance(
+  factory Attendance.fromJson(Map<String, dynamic> json) => Attendance(
         DateTime.parse(json['start'] as String),
         DateTime.parse(json['end'] as String),
       );

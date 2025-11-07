@@ -1,11 +1,11 @@
-import 'package:hospital_management/domain/attendance.dart';
 import 'package:uuid/uuid.dart';
+import 'attendance.dart';
 
 enum Role { Doctor, Nurse, Receptionist, Admin }
 enum Specialization { General, Pediatrician, Surgeon }
 
 var uuid = Uuid();
-
+// ----------------------------- Staff -----------------------------
 class Staff {
   final String _staffId;
   String _staffName;
@@ -23,7 +23,6 @@ class Staff {
     this._baseSalary,
   ) : _staffId = uuid.v4();
 
-  // constructor for loading from JSON file
   Staff._fromData(
     this._staffId,
     this._staffName,
@@ -61,7 +60,6 @@ class Staff {
   @override
   String toString() => toJson().toString();
 
-  // JSON serialization
   Map<String, Object> toJson() => {
         'type': 'Staff',
         'staffId': _staffId,
@@ -73,21 +71,22 @@ class Staff {
         'attendance': _attendance.map((a) => a.toJson()).toList(),
       };
 
-  factory Staff.fromJson(Map<String, Object> json) {
+  factory Staff.fromJson(Map<String, dynamic> json) {
     var staff = Staff._fromData(
       json['staffId'] as String,
       json['staffName'] as String,
       json['gender'] as String,
       json['dob'] as String,
-      Role.values.firstWhere((r) => r.name == (json['position'] as String)),
+      Role.values.firstWhere((r) => r.name == json['position'] as String),
       (json['baseSalary'] as num).toDouble(),
     );
 
     if (json['attendance'] != null) {
       staff.attendance.addAll(
-          ((json['attendance'] as List<Object>)
-                  .map((a) => Attendance.fromJson(a as Map<String, Object>)))
-              .toList());
+        (json['attendance'] as List<dynamic>)
+            .map((a) => Attendance.fromJson(a as Map<String, dynamic>))
+            .toList(),
+      );
     }
 
     return staff;
@@ -129,7 +128,7 @@ class Doctor extends Staff {
     return data;
   }
 
-  factory Doctor.fromJson(Map<String, Object> json) {
+  factory Doctor.fromJson(Map<String, dynamic> json) {
     var doc = Doctor._fromData(
       json['staffId'] as String,
       json['staffName'] as String,
@@ -137,14 +136,15 @@ class Doctor extends Staff {
       json['dob'] as String,
       (json['baseSalary'] as num).toDouble(),
       Specialization.values
-          .firstWhere((s) => s.name == (json['specialization'] as String)),
+          .firstWhere((s) => s.name == json['specialization'] as String),
     );
 
     if (json['attendance'] != null) {
       doc.attendance.addAll(
-          ((json['attendance'] as List<Object>)
-                  .map((a) => Attendance.fromJson(a as Map<String, Object>)))
-              .toList());
+        (json['attendance'] as List<dynamic>)
+            .map((a) => Attendance.fromJson(a as Map<String, dynamic>))
+            .toList(),
+      );
     }
 
     return doc;
@@ -193,7 +193,7 @@ class Nurse extends Staff {
     return data;
   }
 
-  factory Nurse.fromJson(Map<String, Object> json) {
+  factory Nurse.fromJson(Map<String, dynamic> json) {
     var nurse = Nurse._fromData(
       json['staffId'] as String,
       json['staffName'] as String,
@@ -203,16 +203,16 @@ class Nurse extends Staff {
       yearOfExperince: json['yearOfExperince'] != null
           ? (json['yearOfExperince'] as num).toInt()
           : 0,
+      certifications:
+          (json['certification'] as List<dynamic>?)?.cast<String>(),
     );
-
-    nurse.certification =
-        (json['certification'] as List<Object>? ?? []).cast<String>();
 
     if (json['attendance'] != null) {
       nurse.attendance.addAll(
-          ((json['attendance'] as List<Object>)
-                  .map((a) => Attendance.fromJson(a as Map<String, Object>)))
-              .toList());
+        (json['attendance'] as List<dynamic>)
+            .map((a) => Attendance.fromJson(a as Map<String, dynamic>))
+            .toList(),
+      );
     }
 
     return nurse;
@@ -261,7 +261,7 @@ class Admin extends Staff {
     return data;
   }
 
-  factory Admin.fromJson(Map<String, Object> json) {
+  factory Admin.fromJson(Map<String, dynamic> json) {
     var admin = Admin._fromData(
       json['staffId'] as String,
       json['staffName'] as String,
@@ -274,13 +274,12 @@ class Admin extends Staff {
 
     if (json['attendance'] != null) {
       admin.attendance.addAll(
-          ((json['attendance'] as List<Object>)
-                  .map((a) => Attendance.fromJson(a as Map<String, Object>)))
-              .toList());
+        (json['attendance'] as List<dynamic>)
+            .map((a) => Attendance.fromJson(a as Map<String, dynamic>))
+            .toList(),
+      );
     }
 
     return admin;
   }
 }
-
-
